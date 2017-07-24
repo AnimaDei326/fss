@@ -1,0 +1,33 @@
+{{> header}}
+{{> admin}}
+    {{#if rows}}
+        <table class="relation">
+            <tbody id="tbody" class="countries">
+                <tr>
+                    <td>Первый</td>
+                    <td>Второй</td>
+                    <td>Третий</td>
+                    <td>Четвертый</td>
+                    <td>Действие</td>
+                {{#each rows}}
+                    <tr>
+                        <td><span>{{this.country_1}}</span><img src="/images/flags/{{this.id_1}}.svg" /></td>
+                        <td><span>{{this.country_2}}</span><img src="/images/flags/{{this.id_2}}.svg" /></td>
+                        <td><span>{{this.country_3}}</span><img src="/images/flags/{{this.id_3}}.svg" /></td>
+                        <td><span>{{this.country_4}}</span><img src="/images/flags/{{this.id_4}}.svg" /></td>
+                        <td><a href="javascript:delete_relation({{this.id}})">удалить</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <form action="/admin/delete_relation" method="POST" id="form">
+            <input type="hidden" id="input" name="input" />
+            <input type="hidden" id="first" name="first" />
+            <input type="hidden" id="second" name="second" />
+            <input type="hidden" id="third" name="third" />
+            <input type="hidden" id="fourth" name="fourth" />
+        </form>
+    {{else}}
+        <h1>Контент пуст</h1>
+    {{/if}}
+{{> footer}}

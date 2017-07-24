@@ -1,0 +1,10 @@
+{{> header}}
+{{> admin}}
+    {{#if h3}}
+        <h3 class="success">{{h3}}</h3>
+    {{/if}}
+   <form action="/admin/add_region" method="POST">
+       <input type="text" name="region" placeholder="Введите регион" /><br/>
+       <button type="submit" class="ok">ok</button>
+   </form>
+{{> footer}}

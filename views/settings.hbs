@@ -1,0 +1,20 @@
+{{> header}}
+    <h1>{{h1}}</h1>
+    <form action="/settings" method="POST">
+        <label for="level">Уровень сложности</label><br/>
+        <select id="level" name="level">
+            <option {{#if easy}} selected="selected" {{/if}}>нормальный</option>
+            <option {{#if hard}} selected="selected" {{/if}}>сложный</option>
+            <!--<option {{#if mega}} selected="selected" {{/if}}>мегамозг</option>-->
+        </select><br/>
+        <label for="region">Континент</label><br/>
+        <select id="region" name="region">
+            {{#each rows}}
+                <option>{{this.name}}</option>
+            {{/each}}
+            <option>Все</option>
+        </select><br/>
+        <input type="hidden" value="{{region}}" id="defaultRegion">
+        <button type="submit" style="margin: 30px;">сохранить</button>
+    </form>
+{{> footer}}

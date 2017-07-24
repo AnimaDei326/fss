@@ -1,0 +1,10 @@
+{{> header}}
+<h1 id="{{x}}" style="margin-bottom: 20px;">{{country}}</h1>
+<p>{{current}} / {{size}} </p>
+<p><a href="/gameover">сдаться</a></p>
+<div class="start" id="start">
+        {{#each rows}}
+            <a onclick="javascript:answer_cf('{{this.id}}')" style="border: 20px solid #eee;">{{this.capital}}</a>
+        {{/each}}
+</div>
+{{> footer}}

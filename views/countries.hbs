@@ -1,0 +1,30 @@
+{{> header}}
+{{> admin}}
+    {{#if rows}}
+        <table class="list">
+            <tbody id="tbody" class="countries">
+                <tr>
+                    <td>Флаг</td>
+                    <td>Страна</td>
+                    <td>Столица</td>
+                    <td colspan="2">Действия</td>
+                {{#each rows}}
+                    <tr id="tr{{this.id}}">
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                        <td>{{this.capital}}</td>
+                        <td><a href="javascript:edit(tr{{this.id}})">редактировать</a></td>
+                        <td><a href="/admin/delete/{{this.id}}">удалить</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <form action="/admin/save" method="POST" id="form">
+            <input type="hidden" id="country" name="country">
+            <input type="hidden" id="capital" name="capital">
+            <input type="hidden" id="id_input" name="id">
+        </form>
+    {{else}}
+        <h1>Контент пуст</h1>
+    {{/if}}
+{{> footer}}

@@ -1,0 +1,9 @@
+{{> header}}
+<h1>У нас новый рекорд!</h1>
+<form action="/game/new_record" method="POST">
+    <input type="text" name="username" placeholder="Ваше имя" required /><br/>
+    <input type="text" name="city" placeholder="Ваш город" required /><br/>
+    <input type="hidden" name="game" value="{{gamename}}" />
+    <button type="submit" class="record">сохранить мое имя в списке лидеров</button>
+</form>
+{{> footer}}

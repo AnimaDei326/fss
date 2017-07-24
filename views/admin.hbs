@@ -1,0 +1,14 @@
+{{> header}}
+{{#if h3}}
+    <h3 class="error">{{h3}}</h3>
+{{/if}}
+
+<a href="/" class="back">назад</a>
+
+<form action="/login" method="POST">
+<legend>Введите пароль для входа в админку</legend>
+    <input type="hidden" name="username" value="admin"><br/>
+    <input type="password" name="password"><br/>
+    <button type="submit" class="ok">ok</button>
+</form>
+{{> footer}}

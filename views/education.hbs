@@ -1,0 +1,61 @@
+{{> header}}
+        <table class="list">
+            <tbody class="world">
+                <tr>
+                    <td><strong>Флаг</strong></td>
+                    <td><strong>Страна</strong></td>
+                    <td><strong>Столица</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Европа</strong></td>
+                </tr>
+                {{#each europe}}
+                    <tr>
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                        <td>{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+                <tr>
+                    <td colspan="3"><strong>Азия</strong></td>
+                </tr>
+                {{#each azia}}
+                    <tr>
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                        <td>{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+                <tr>
+                    <td colspan="3"><strong>Африка</strong></td>
+                </tr>
+                {{#each africa}}
+                    <tr>
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                        <td>{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+                <tr>
+                    <td colspan="3"><strong>Америка</strong></td>
+                </tr>
+                {{#each america}}
+                    <tr>
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                        <td>{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+                <tr>
+                    <td colspan="3"><strong>Австралия и Океания</strong></td>
+                </tr>
+                {{#each australia}}
+                    <tr>
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                        <td>{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+{{> footer}}

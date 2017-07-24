@@ -1,0 +1,58 @@
+{{> header}}
+{{> admin}}
+    {{#if rows}}
+        <table class="list">
+            <tbody id="relation" class="countries">
+                <tr>
+                    <td>Первый</td>
+                    <td>Второй</td>
+                    <td>Третий</td>
+                    <td>Четвертый</td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class ="icons" id="first" onchange="javascript:setIcon(first)" autofocus> 
+                            {{#each rows}}
+                                <option id="{{this.id}}">{{this.country}}</option>
+                            {{/each}}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="icons" id="second" onchange="javascript:setIcon(second)">
+                            {{#each rows}}
+                                <option id="{{this.id}}">{{this.country}}</option>
+                            {{/each}}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="icons" id="third" onchange="javascript:setIcon(third)">
+                            {{#each rows}}
+                                <option id="{{this.id}}">{{this.country}}</option>
+                            {{/each}}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="icons" id="fourth" onchange="javascript:setIcon(fourth)">
+                            {{#each rows}}
+                                <option id="{{this.id}}">{{this.country}}</option>
+                            {{/each}}
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="javascript:add_relation()">добавить связь</a>
+        <form action="/admin/add_relation" method="POST" id="form">
+            <input type="hidden" id="firstInput" name="firstInput" />
+            <input type="hidden" id="secondInput" name="secondInput" />
+            <input type="hidden" id="thirdInput" name="thirdInput" />
+            <input type="hidden" id="fourthInput" name="fourthInput" />
+            <input type="hidden" id="firstCountry" name="firstCountry" />
+            <input type="hidden" id="secondCountry" name="secondCountry" />
+            <input type="hidden" id="thirdCountry" name="thirdCountry" />
+            <input type="hidden" id="fourthCountry" name="fourthCountry" />
+        </form>
+    {{else}}
+        <h1>Контент пуст</h1>
+    {{/if}}
+{{> footer}}

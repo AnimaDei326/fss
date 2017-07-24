@@ -1,0 +1,22 @@
+{{> header}}
+{{> admin}}
+    {{#if h3}}
+        <h3 class="success">{{h3}}</h3>
+    {{/if}}
+    {{#if regions}}
+        <form action="/admin/add_country" method="POST" enctype="multipart/form-data" onclick="javascript:returnSelected()" onkeypress="javascript:returnSelected()">
+            <input type="text" name="country" placeholder="Введите страну" /><br/>
+            <input type="text" name="capital" placeholder="Введите столицу" /><br/>
+            <select id="select" name="t">
+                {{#each regions}}
+                    <option id="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+            </select><br />
+            <input type="hidden" id="id_region" name="id_region" />
+            <input type="file" name="foo"/><br/>
+            <button type="submit" class="ok">ok</button>
+        </form>
+    {{else}}
+        <h3 class="error">Нет ни одного региона! Добавьте регион</h3>
+    {{/if}}
+{{> footer}}

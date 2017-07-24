@@ -1,0 +1,21 @@
+{{> header}}
+<h1 id="{{x}}">{{country}} </h1>
+<p>{{current}} / {{size}} </p>
+<p><a href="/gameover">сдаться</a></p>
+<div class="start">
+    <div class="img">
+        <a onclick="javascript:answer_fc('{{row.id_1}}')">
+            <img src="/images/flags/{{row.id_1}}.svg" />
+        </a>
+        <a onclick="javascript:answer_fc('{{row.id_2}}')">
+            <img src="/images/flags/{{row.id_2}}.svg" />
+        </a>
+        <a onclick="javascript:answer_fc('{{row.id_3}}')">
+            <img src="/images/flags/{{row.id_3}}.svg" />
+        </a>
+        <a onclick="javascript:answer_fc('{{row.id_4}}')">
+            <img src="/images/flags/{{row.id_4}}.svg" />
+        </a>
+    </div>
+</div>
+{{> footer}}

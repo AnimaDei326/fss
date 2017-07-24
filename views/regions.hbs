@@ -1,0 +1,26 @@
+{{> header}}
+{{> admin}}
+    {{#if rows}}
+        <table class="list">
+            <tbody id="tbody" class="regions">
+                <tr>
+                    <td>Регион</td>
+                    <td colspan="2">Действия</td>
+                </tr>
+                {{#each rows}}
+                    <tr id="tr{{this.id}}">
+                        <td>{{this.name}}</td>
+                        <td><a href="javascript:edit_region(tr{{this.id}})">редактировать</a></td>
+                        <td><a href="/admin/delete_region/{{this.id}}">удалить</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <form action="/admin/save_region" method="POST" id="form">
+            <input type="hidden" id="region" name="region">
+            <input type="hidden" id="id_input" name="id">
+        </form>
+    {{else}}
+        <h1>Контент пуст</h1>
+    {{/if}}
+{{> footer}}

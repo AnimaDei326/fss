@@ -1,0 +1,20 @@
+{{> header}}
+{{> admin}}
+    {{#if rows}}
+        <table class="relation">
+            <tbody id="tbody" class="countries">
+                <tr>
+                    <td>Флаг</td>
+                    <td>Страна</td>
+                {{#each rows}}
+                    <tr>
+                        <td><img src="/images/flags/{{this.id}}.svg" /></td>
+                        <td>{{this.country}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <h1>Контент пуст</h1>
+    {{/if}}
+{{> footer}}
