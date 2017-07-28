@@ -1,19 +1,15 @@
 const Games = require('./../models/game');
 const F = require('./../models/functions');
+const uuid = require('./../node_modules/uuid-v4');
 
-let arrWait = []; //массив для id, которые не были сыграны, пересенено в сессию
-let arrCorrect = []; //массив, содержащий верный ответ
-let length = 0; //счетчик верно угаданнных
-let countWins = 0; //счетчик верно угаданнных
-let countLoses = 0; //счетчик неверно угаданнных
-let arrRandom = []; //массив для случайных стран 
-let rand = 0; //рандомое число
-let gameOver = false; //флаг, определяющий конец игры
+let arrUser = [];
 
 module.exports = function(app){
 
     //Выбор режима игры
     app.get('/game', function(req, res, next){
+        req.session.id = req.session.id || uuid();
+        console.log(req.session.id);
         restart(req);
         let level = F.getLevel(req);
         if(level.easyS == true){
@@ -36,7 +32,8 @@ module.exports = function(app){
     });
     //Игра угадать флаг по стране (легкий уровень)
     app.get('/game/flag_country', function(request, response, next){
-        if(gameOver){restart(request);}
+        console.log(arrUser);
+        if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
         if(typeof(filtr) == 'string'){
@@ -49,14 +46,14 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
-                var xCrypt = crypt(arrCorrect.id.toString());
+                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('flag_country', {
                 title: 'Игра',
-                rows: arrRandom,
-                country: arrCorrect.country,
+                rows: arrUser[request.session.id].arrRandom,
+                country: arrUser[request.session.id].arrCorrect.country,
                 x: xCrypt,
-                current : arrWait.length - length,
-                size: arrWait.length,
+                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
+                size:  arrUser[request.session.id].arrWait.length,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -299,24 +296,25 @@ module.exports = function(app){
 
     //проверка верного ответа (легкий уровень)
     app.get('/game/check/:id', function(request, res, next){
-        if(gameOver){
+        console.log(arrUser);
+        if(arrUser[request.session.id].gameOver){
             res.redirect('/gameover');
         }else{
             let find = true;
             for(var i=0; find; i++){
-                if(arrWait[i] != undefined){
-                    if(arrWait[i].id == arrCorrect.id){
-                        arrWait[i] = undefined;
+                if(arrUser[request.session.id].arrWait[i] != undefined){
+                    if(arrUser[request.session.id].arrWait[i].id == arrUser[request.session.id].arrCorrect.id){
+                        arrUser[request.session.id].arrWait[i] = undefined;
                         find = false;
                     }
                 }
             }
-            if(request.params.id == arrCorrect.id){
-                countWins++;
+            if(request.params.id == arrUser[request.session.id].arrCorrect.id){
+                arrUser[request.session.id].countWins++;
             }else{
-                countLoses++;
+                arrUser[request.session.id].countLoses++;
             }
-            if(length == 0){
+            if(arrUser[request.session.id].len == 0){
                 res.redirect('/gameover');
             }else{
                 let backURL = request.header('Referer') || '/';
@@ -362,10 +360,10 @@ module.exports = function(app){
 
     //конец игры
     app.get('/gameover', function(req, response, next){
-        if(gameOver == true){
+        if(arrUser[req.session.id].gameOver == true){
             response.redirect('/game');
         }else{
-            gameOver = true;
+            arrUser[req.session.id].gameOver = true;
             let backURL = req.header('Referer') || '/';
             let filtr = {
                 table: 'records',
@@ -379,12 +377,12 @@ module.exports = function(app){
                     let levObj = F.getLevel(req); let lev; let scoreWin; 
                     if(levObj.easyS){
                         lev = 'нормальный';
-                        scoreWin = countWins *10;
+                        scoreWin = arrUser[req.session.id].countWins *10;
                     }else{
                         lev = 'сложный';
-                        scoreWin = countWins *40;
+                        scoreWin = arrUser[req.session.id].countWins *40;
                     }
-                    let resultScore = scoreWin - (countLoses * 3);
+                    let resultScore = scoreWin - (arrUser[req.session.id].countLoses * 3);
                     if(resultScore > 0){
                         let begin = backURL.indexOf('/game');
                         let end = backURL.indexOf('_hard'); let game;
@@ -407,9 +405,9 @@ module.exports = function(app){
                         }else{
                             response.render('gameover',{
                                 title: 'Конец игры',
-                                wins: countWins,
-                                loses: countLoses,
-                                length: arrWait.length,
+                                wins: arrUser[req.session.id].countWins,
+                                loses: arrUser[req.session.id].countLoses,
+                                length: arrUser[req.session.id].arrWait.length,
                                 back: backURL,
                                 partials: {
                                     header: 'partials/header',
@@ -420,9 +418,9 @@ module.exports = function(app){
                     }else{
                         response.render('gameover',{
                             title: 'Конец игры',
-                            wins: countWins,
-                            loses: countLoses,
-                            length: arrWait.length,
+                            wins: arrUser[req.session.id].countWins,
+                            loses: arrUser[req.session.id].countLoses,
+                            length: arrUser[req.session.id].arrWait.length,
                             back: backURL,
                             partials: {
                                 header: 'partials/header',
@@ -442,10 +440,10 @@ module.exports = function(app){
             let levObj = F.getLevel(request); let lev; let scoreWin; 
             if(levObj.easyS){
                 lev = 'нормальный';
-                scoreWin = countWins *10;
+                scoreWin = arrUser[request.session.id].countWins *10;
             }else{
                 lev = 'сложный';
-                scoreWin = countWins *40;
+                scoreWin = arrUser[request.session.id].countWins *40;
             }
             let game;
             switch(request.body.game){
@@ -455,7 +453,7 @@ module.exports = function(app){
                 case 'country_capital': game = 'угадать страну по столице'; break;
                 default: game = 'угадать флаг по стране';
             }
-            let resultScore = scoreWin - (countLoses * 3);
+            let resultScore = scoreWin - (arrUser[request.session.id].countLoses * 3);
             let filtr = {
                 table : 'records',
                 set : {
@@ -497,30 +495,33 @@ module.exports = function(app){
     }
 
     function randomElements(res, request){
-        if(length == 0){
-            arrWait = res;
-            length = arrWait.length;
+        if(arrUser[request.session.id].len == 0){
+            arrUser[request.session.id].arrWait = res;
+            arrUser[request.session.id].len = arrUser[request.session.id].arrWait.length;
         }
-        length--;
-        arrRandom = [];
-        rand = "";
-        rand = Math.floor(Math.random() * res.length);
-        for(var i=0; arrWait[rand] == undefined; i++){
-            rand = Math.floor(Math.random() * res.length);
+        arrUser[request.session.id].len--;
+        arrUser[request.session.id].arrRandom = [];
+        arrUser[request.session.id].rand = 0;
+        arrUser[request.session.id].rand = Math.floor(Math.random() * res.length);
+        for(var i=0;  arrUser[request.session.id].arrWait[arrUser[request.session.id].rand] == undefined; i++){
+            arrUser[request.session.id].rand = Math.floor(Math.random() * res.length);
         }
-        arrRandom.push(arrWait[rand]);
-        arrCorrect = arrRandom[0];
-        for(var i = 0; arrRandom.length < 4; i++){ 
-            rand = Math.floor(Math.random() * res.length);
-            for(var y = 0; arrRandom.length > y; y++){
-                if(res[rand].id == arrRandom[y].id){
-                    rand = Math.floor(Math.random() * res.length);
+        arrUser[request.session.id].arrRandom.push(arrUser[request.session.id].arrWait[arrUser[request.session.id].rand]);
+        arrUser[request.session.id].arrCorrect = arrUser[request.session.id].arrRandom[0];
+        for(var i = 0; arrUser[request.session.id].arrRandom.length < 4; i++){ 
+            arrUser[request.session.id].rand = Math.floor(Math.random() * res.length);
+            for(var y = 0; arrUser[request.session.id].arrRandom.length > y; y++){
+                if(res[arrUser[request.session.id].rand].id == arrUser[request.session.id].arrRandom[y].id){
+                    arrUser[request.session.id].rand = Math.floor(Math.random() * res.length);
                     y = -1;
                 }
             }
-            arrRandom.push(res[rand]);
+            arrUser[request.session.id].arrRandom.push(res[arrUser[request.session.id].rand]);
         }
-        for(var j, x, i = arrRandom.length; i; j = parseInt(Math.random() * i), x = arrRandom[--i], arrRandom[i] = arrRandom[j], arrRandom[j] = x);
+        for(var j, x, i = arrUser[request.session.id].arrRandom.length; i; j = parseInt(Math.random() * i), 
+        x = arrUser[request.session.id].arrRandom[--i],
+        arrUser[request.session.id].arrRandom[i] = arrUser[request.session.id].arrRandom[j],
+        arrUser[request.session.id].arrRandom[j] = x);
     }
     function likeElements(res){
         if(arrWait.length == 0){
@@ -561,12 +562,13 @@ module.exports = function(app){
         return output;
     }
     function restart(req){
-        length = 0;
-        arrWait = [];
-        arrCorrect = [];
-        countWins = 0;
-        countLoses = 0;
-        arrRandom = [];
-        rand = 0; 
-        gameOver = false;
+        req.session.id = req.session.id || uuid();
+        arrUser[req.session.id] = arrWait = [];
+        arrUser[req.session.id] = arrCorrect = [];
+        arrUser[req.session.id] = arrRandom = [];
+        arrUser[req.session.id].len = 0;
+        arrUser[req.session.id].countWins = 0;
+        arrUser[req.session.id].countLoses = 0;
+        arrUser[req.session.id].rand = 0;
+        arrUser[req.session.id].gameOver = false;
     }

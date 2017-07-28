@@ -55,7 +55,6 @@ passport.use(new Strategy(function(username, password, done){
     });
 }));
 
-
 passport.serializeUser(function(user, done){
     done(null, user);
 });
@@ -96,8 +95,7 @@ require('./routes/game.js')(app);
 
 //Главная страница
 app.get('/', function(req, res, next){
-    console.log(req.session);
-    console.log(session);
+    //req.session.id = req.session.id || uuid();
     res.render('index', {
         title: 'Главная страница',
         partials: {
