@@ -493,7 +493,6 @@ module.exports = function(app){
         }
         return filtr;
     }
-
     function randomElements(res, request){
         if(arrUser[request.session.id].len == 0){
             arrUser[request.session.id].arrWait = res;

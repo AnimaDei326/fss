@@ -120,7 +120,6 @@ module.exports = function(app){
             }
         })
     });
-
     //Проверка связи
     app.get('/admin/check_relation', function(request, response, next){
         let filtr = {
@@ -145,7 +144,6 @@ module.exports = function(app){
             }
         })
     });
-
     //Удалить связь
     app.post('/admin/delete_relation', function(request, response, next){
         var filtr = {
@@ -195,7 +193,6 @@ module.exports = function(app){
             }
         })
     });
-
     app.post('/admin/add_country', function(req, res, next){
         let filtr = {
             table: 'countries',
@@ -234,8 +231,6 @@ module.exports = function(app){
             }
         });
     });
-
-
     //Новый регион
     app.get('/admin/add_region', function(req, res, next){
         res.render('add_region', {
@@ -247,7 +242,6 @@ module.exports = function(app){
             }
         });
     });
-
     app.post('/admin/add_region', function(req, res, next){
         let filtr = {
             table: 'regions',
@@ -298,7 +292,6 @@ module.exports = function(app){
             }
         });
     });
-
     //Редактирование региона
     app.post('/admin/save_region', function(request, response, next){
         let filtr = {

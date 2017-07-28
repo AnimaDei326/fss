@@ -18,13 +18,7 @@ app.use(session({
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
-const passport = require('passport');
-app.use(passport.initialize());
-app.use(passport.session());
-
-const Strategy = require('passport-local').Strategy;
 const Games = require('./models/game');
-const Users = require('./models/user');
 const F = require('./models/functions');
 
 app.engine('hbs', templating.handlebars);
@@ -34,68 +28,13 @@ app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/images/flags', express.static(__dirname + '/images/flags'));
 
-//Авторизация
-passport.use(new Strategy(function(username, password, done){
-    let filtr = {
-        table: 'users',
-        column1: 'name',
-        value1: username,
-        column2: 'password',
-        value2: password
-    };
-    Users.auth(filtr, function(err, userdata){
-        if(err){
-            console.log(err);
-            return done(null, false);
-        }else if(userdata != undefined){
-           return done(null, {user: userdata });
-        }else{
-            return done(null, false);
-        }
-    });
-}));
-
-passport.serializeUser(function(user, done){
-    done(null, user);
-});
-
-passport.deserializeUser(function(id, done){
-    done(null, id);
-});
-
-const auth = passport.authenticate('local', {
-        successRedirect: '/admin/relations', 
-        failureRedirect: '/login'
-});
-
-app.get('/login', function(req, res, next){
-    res.render('admin', {
-        title: 'Админка',
-        partials: {
-            header: 'partials/header',
-            footer: 'partials/footer'
-        }
-    })
-});
-
-app.post('/login', auth);
-
-const mustBeAuthenticated = function(req, res, next){
-    if(req.isAuthenticated()){
-        next();
-    }else{
-        res.redirect('/');
-    }
-};
-
-app.all('/admin/*', mustBeAuthenticated);
-
+require('./models/auth.js')(app);
+require('./routes/login.js')(app);
 require('./routes/admin.js')(app);
 require('./routes/game.js')(app);
 
 //Главная страница
 app.get('/', function(req, res, next){
-    //req.session.id = req.session.id || uuid();
     res.render('index', {
         title: 'Главная страница',
         partials: {
