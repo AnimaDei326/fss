@@ -4,18 +4,11 @@
 <p><a href="/gameover">сдаться</a></p>
 <div class="start">
     <div class="img">
-        <a onclick="javascript:answer_fc('{{row.id_1}}')">
-            <img src="/images/flags/{{row.id_1}}.svg" />
-        </a>
-        <a onclick="javascript:answer_fc('{{row.id_2}}')">
-            <img src="/images/flags/{{row.id_2}}.svg" />
-        </a>
-        <a onclick="javascript:answer_fc('{{row.id_3}}')">
-            <img src="/images/flags/{{row.id_3}}.svg" />
-        </a>
-        <a onclick="javascript:answer_fc('{{row.id_4}}')">
-            <img src="/images/flags/{{row.id_4}}.svg" />
-        </a>
+        {{#each row}}
+            <a onclick="javascript:answer_fc('{{this.id}}')">
+                <img src="/images/flags/{{this.id}}.svg" />
+            </a>
+        {{/each}}
     </div>
 </div>
 {{> footer}}
