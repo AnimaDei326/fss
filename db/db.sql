@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS regions, countries, users, likes, records;
+DROP TABLE IF EXISTS regions, countries, users, likes, records, facts;
 
 CREATE TABLE countries(
     id INTEGER NOT NULL AUTO_INCREMENT,
@@ -42,6 +42,16 @@ CREATE TABLE records(
     score INTEGER (4),
     game NVARCHAR(50),
     level_game NVARCHAR(50),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE facts(
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    title_preview NVARCHAR(50),
+    img_preview NVARCHAR(50),
+    text_preview NVARCHAR(200),
+    title_main NVARCHAR(200),
+    text_main NVARCHAR(5000),
     PRIMARY KEY (id)
 );
 

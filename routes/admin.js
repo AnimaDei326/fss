@@ -1,6 +1,81 @@
 const Games = require('./../models/game');
 
 module.exports = function(app){
+    //Список фактов
+    app.get('/admin/facts', function(req, res, next){
+        Games.showAll('facts', function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                res.render('admin_facts', {
+                    title: 'Факты',
+                    rows: result,
+                    partials: {
+                        header: 'partials/header',
+                        admin: 'partials/admin',
+                        footer: 'partials/footer'
+                    }
+                })
+            }
+        })
+    });
+    //Добавить факт
+    app.get('/admin/add_fact', function(req, res, next){
+        res.render('add_fact', {
+            title: 'Добавить факт',
+            partials: {
+                header: 'partials/header',
+                admin: 'partials/admin',
+                footer: 'partials/footer'
+            }
+        })
+    });
+    app.post('/admin/add_fact', function(req, res, next){
+        let filtr = {
+            table: 'facts',
+            set: {
+                title_preview: req.body.title_preview,
+                text_preview: req.body.text_preview,
+                title_main: req.body.title_main,
+                text_main: req.body.text_main
+            }
+        };
+        if(req.files.foo){
+            let sampleFile;let path;
+            if(typeof(req.files.foo.length) == 'number'){
+                for(var i = 0; i < req.files.foo.length; i++){
+                    sampleFile = req.files.foo[i];
+                    path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                    sampleFile.mv(path, function(err) {
+                        if (err)
+                        return res.status(500).send(err);
+                    });
+                }
+            }else{
+                sampleFile = req.files.foo;
+                path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                sampleFile.mv(path, function(err) {
+                    if (err)
+                    return res.status(500).send(err);
+                });
+            }
+        }
+        Games.insert(filtr, function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                 res.render('add_fact', {
+                    title: 'Добавить факт',
+                    message: 'Факт успешно добавлен',
+                        partials: {
+                            header: 'partials/header',
+                            admin: 'partials/admin',
+                            footer: 'partials/footer'
+                        }
+                    });
+            }
+        });
+    });
     //Список стран
     app.get('/admin/countries', function(req, res, next){
         let filtr = {
@@ -22,7 +97,7 @@ module.exports = function(app){
                 })
             }
         })
-    })
+    });
     //Список регионов
     app.get('/admin/regions', function(req, res, next){
         Games.showAll('regions', function(error, result){

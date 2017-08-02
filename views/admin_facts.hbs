@@ -1,0 +1,19 @@
+{{> header}}
+{{> admin}}
+    {{#if rows}}
+            {{#each rows}}
+                <div style="margin:30px;">
+                    <h3>Заголовок: {{this.preview_title}}</h3>
+                    <h4>Превью текст: {{this.text_preview}}</h4>
+                    <div class="text">Текст: {{this.text_main}}</div>
+                    <img src="/images/news/{{this.img_preview}}" />
+                    <a href="/admin/news/{{this.id}}">открыть</a>
+                </div>
+            {{/each}}
+    {{else}}
+        <h1>Контент пуст</h1>
+    {{/if}}
+    <script>
+       replaceTag();
+    </script>
+{{> footer}}

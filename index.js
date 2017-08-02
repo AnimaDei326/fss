@@ -26,7 +26,7 @@ app.set('view engine', 'hbs');
 app.set('views', `${__dirname}/views`);
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
-app.use('/images/flags', express.static(__dirname + '/images/flags'));
+app.use('/images', express.static(__dirname + '/images'));
 
 require('./models/auth.js')(app);
 require('./routes/login.js')(app);
@@ -118,5 +118,28 @@ app.post('/settings', function(req, result, next){
     }
     result.redirect('/');
 });
+//Лидеры
+app.get('/liaders', function(req, result, next){
+    let filtr = {
+        table: 'records',
+        order: 'score',
+        limit: 10
+    };
+    Games.showAllOrderByNameDesc(filtr, function(err, res){
+        if(err){
+            console.log(err);
+        }else{
+            result.render('liaders',{
+                title: 'Лидеры',
+                rows: res,
+                partials: {
+                    header: 'partials/header',
+                    footer: 'partials/footer'
+                }
+            });
+        }
+    })
+});
+
 
 app.listen(8888);

@@ -211,6 +211,31 @@ function delete_relation(id){
     fourth.value = arrId[3];
     form.submit();
 }
+function replaceTag(){
+    var textColl = document.body.getElementsByClassName('text');
+    var a = ""; var  b = "";
+    for(var i=0; i < textColl.length; i++){
+        a = textColl[i].innerHTML.replace(/&lt;/g, '<');
+        b = a.replace(/&gt;/g, '>');
+        textColl[i].innerHTML = b;
+    }
+}
+function Init(){ //инициализация iframe
+        var frame = iframe_redactor.contentDocument.firstChild.lastChild;
+        document.getElementById("iframe_redactor").contentWindow.document.designMode = "On";
+}
+function doStyle(style){ //приминения стиля iframe
+    document.getElementById("iframe_redactor").contentWindow.document.execCommand(style, false, null);
+}
+function addImg(){
+    var name = img.value;
+    var tag = "<img src='/images/facts/" + name + "'/>";
+    iframe_redactor.contentDocument.firstChild.lastChild.innerHTML += tag;
+}
+function go(){ //забрать текст в обычную текстарею
+    text_main.innerHTML = iframe_redactor.contentDocument.firstChild.lastChild.innerHTML;
+    form.submit();
+}
 window.onload = function(){
     let path = window.location.pathname;
     if (path == '/game/flag_country' || 

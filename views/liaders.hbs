@@ -1,0 +1,28 @@
+{{> header}}
+    <h1>Лидеры</h1>
+    {{#if rows}}
+        <table class="list">
+            <tbody id="tbody" class="countries">
+                <tr>
+                    <td>Имя</td>
+                    <td>Город</td>
+                    <td>Результат</td>
+                    <td>Уровень сложности</td>
+                    <td>Тип игры</td>
+                    <td>Часть Света</td>
+                {{#each rows}}
+                    <tr>
+                        <td>{{this.username}}</td>
+                        <td>{{this.city}}</td>
+                        <td>{{this.score}}</td>
+                        <td>{{this.level_game}}</td>
+                        <td>{{this.game}}</td>
+                        <td>{{this.region}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <h2>Пока результатов нет</h2>
+    {{/if}}
+{{> footer}}

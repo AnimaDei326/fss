@@ -35,7 +35,7 @@ module.exports = function(app){
 
 
     const auth = passport.authenticate('local', {
-            successRedirect: '/admin/relations', 
+            successRedirect: '/admin/news', 
             failureRedirect: '/login'
     });
 
