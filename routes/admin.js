@@ -19,6 +19,31 @@ module.exports = function(app){
             }
         })
     });
+    //Открыть факт
+    app.get('/admin/fact/:id', function(req, res, next){
+        let filtr = {
+            table: 'facts',
+            column1: 'id',
+            value1: req.params.id,
+            column2: 'id',
+            value2: req.params.id
+        };
+        Games.select(filtr, function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                res.render('admin_fact', {
+                    title: 'Факт',
+                    rows: result,
+                    partials: {
+                        header: 'partials/header',
+                        admin: 'partials/admin',
+                        footer: 'partials/footer'
+                    }
+                })
+            }
+        })
+    });
     //Добавить факт
     app.get('/admin/add_fact', function(req, res, next){
         res.render('add_fact', {
@@ -36,6 +61,7 @@ module.exports = function(app){
             set: {
                 title_preview: req.body.title_preview,
                 text_preview: req.body.text_preview,
+                img_preview: req.body.img_preview,
                 title_main: req.body.title_main,
                 text_main: req.body.text_main
             }
@@ -67,6 +93,80 @@ module.exports = function(app){
                  res.render('add_fact', {
                     title: 'Добавить факт',
                     message: 'Факт успешно добавлен',
+                        partials: {
+                            header: 'partials/header',
+                            admin: 'partials/admin',
+                            footer: 'partials/footer'
+                        }
+                    });
+            }
+        });
+    });
+    //Редактирование факта
+    app.get('/admin/fact/redact/:id', function(req, res, next){
+        let filtr = {
+            table: 'facts',
+            column1: 'id',
+            value1: req.params.id,
+            column2: 'id',
+            value2: req.params.id
+        };
+        Games.select(filtr, function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                res.render('redact_fact', {
+                    title: 'Редактирование факта',
+                    row: result,
+                    partials: {
+                        header: 'partials/header',
+                        admin: 'partials/admin',
+                        footer: 'partials/footer'
+                    }
+                })
+            }
+        })
+    });
+    app.post('/admin/fact/redact/:id', function(req, res, next){
+        let filtr = {
+            table: 'facts',
+            set: {
+                title_preview: req.body.title_preview,
+                text_preview: req.body.text_preview,
+                img_preview: req.body.img_preview,
+                title_main: req.body.title_main,
+                text_main: req.body.text_main
+            },
+            column: 'id',
+            value: req.params.id
+        };
+        if(req.files.foo){
+            let sampleFile;let path;
+            if(typeof(req.files.foo.length) == 'number'){
+                for(var i = 0; i < req.files.foo.length; i++){
+                    sampleFile = req.files.foo[i];
+                    path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                    sampleFile.mv(path, function(err) {
+                        if (err)
+                        return res.status(500).send(err);
+                    });
+                }
+            }else{
+                sampleFile = req.files.foo;
+                path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                sampleFile.mv(path, function(err) {
+                    if (err)
+                    return res.status(500).send(err);
+                });
+            }
+        }
+        Games.update(filtr, function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                 res.render('add_fact', {
+                    title: 'Добавить факт',
+                    message: 'Факт успешно изменен',
                         partials: {
                             header: 'partials/header',
                             admin: 'partials/admin',

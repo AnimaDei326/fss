@@ -1,9 +1,24 @@
 {{> header}}
-<h1>У нас новый рекорд!</h1>
-<form action="/game/new_record" method="POST">
-    <input type="text" name="username" placeholder="Ваше имя" required /><br/>
-    <input type="text" name="city" placeholder="Ваш город" required /><br/>
-    <input type="hidden" name="game" value="{{gamename}}" />
-    <button type="submit" class="record">сохранить мое имя в списке лидеров</button>
-</form>
+<div class="content__wrap">
+    <div class="win-message__wrap">
+        <h4 class="win-message__title">У нас новый рекорд!</h4>
+        <form action="/game/new_record" class="win-message__form" method="POST">
+            <input class="win-message__input" name="username" placeholder="Ваше имя" required  />
+            <input class="win-message__input" name="city" placeholder="Ваш город" required />
+            <input type="submit" class="win-message__btn"  value="Сохранить" />
+        </form>
+    </div>
+    <div class="message__wrap">
+        <p class="message__result-text">Ваш результат: <span>{{result}}</span></p>
+        <div class="buttons__wrap">
+            <a href="{{back}}" class="buttons__element btn__again">Еще разок</a>
+        </div>
+        <div class="counting__wrap">
+            <h4 class="counting__title">Расчет результата</h4>
+            <p>Верно угаданных: {{wins}} x 10 баллов х {{#if level}} 4 {{else}} 1 {{/if}}коэффициент сложности = {{scoreWins}}</p>
+            <p>Неверно угаданных: {{loses}} х 3 балла = {{scoreLoses}}</p>
+            <p>Результат: {{scoreWins}} - {{scoreLoses}} = {{result}}</p>
+        </div>
+    </div>
+</div>
 {{> footer}}

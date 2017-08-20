@@ -3,11 +3,10 @@
     {{#if rows}}
             {{#each rows}}
                 <div style="margin:30px;">
-                    <h3>Заголовок: {{this.preview_title}}</h3>
+                    <h3>Заголовок: {{this.title_preview}}</h3>
                     <h4>Превью текст: {{this.text_preview}}</h4>
-                    <div class="text">Текст: {{this.text_main}}</div>
-                    <img src="/images/news/{{this.img_preview}}" />
-                    <a href="/admin/news/{{this.id}}">открыть</a>
+                    <img src="/images/facts/{{this.img_preview}}" style="width: 200px;" />
+                    <a href="/admin/fact/{{this.id}}">открыть</a>
                 </div>
             {{/each}}
     {{else}}

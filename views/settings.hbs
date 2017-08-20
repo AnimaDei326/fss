@@ -1,20 +1,38 @@
 {{> header}}
-    <h1>{{h1}}</h1>
-    <form action="/settings" method="POST">
-        <label for="level">Уровень сложности</label><br/>
-        <select id="level" name="level">
-            <option {{#if easy}} selected="selected" {{/if}}>нормальный</option>
-            <option {{#if hard}} selected="selected" {{/if}}>сложный</option>
-            <!--<option {{#if mega}} selected="selected" {{/if}}>мегамозг</option>-->
-        </select><br/>
-        <label for="region">Континент</label><br/>
-        <select id="region" name="region">
-            {{#each rows}}
-                <option>{{this.name}}</option>
-            {{/each}}
-            <option>Все</option>
-        </select><br/>
-        <input type="hidden" value="{{region}}" id="defaultRegion">
-        <button type="submit" style="margin: 30px;">сохранить</button>
-    </form>
+<div class="content__wrap">
+    <div class="settings__wrap">
+        <form action="/settings" method="POST" class="settings__form">
+            <div class="settings__content">
+                <div class="settings__lvl">
+                    <span class="settings-form__title">Уровень сложности</span>
+                    <div class="select__wrap">
+                        <span class="visible-select__view">{{#if easy}}нормальный{{/if}}{{#if hard}}сложный{{/if}}<i class="select__arrow">&nbsp;</i></span>
+                        <div class="select__elements">
+                            <p data-value="нормальный" class="select__element" onclick="select(this, 'lvl')">нормальный</p>
+                            <p data-value="сложный" class="select__element" onclick="select(this, 'lvl')">сложный</p>
+                        </div>
+                        <input id="level_input" type="hidden" name="level" value="{{#if easy}}нормальный{{/if}}{{#if hard}}сложный{{/if}}"/>
+                        <input type="hidden" name="select1" class="hidden-select__view select-lvl" value="1" />
+                    </div>
+                </div>
+                <div class="settings__world">
+                    <span class="settings-form__title">Часть света</span>
+
+                    <div class="select__wrap">
+                        <span class="visible-select__view">{{region}}<i class="select__arrow">&nbsp;</i></span>
+                        <div class="select__elements">
+                            {{#each rows}}
+                                <p data-value="{{this.name}}" class="select__element" onclick="select(this, 'world')">{{this.name}}</p>
+                            {{/each}}
+                            <p data-value="Все" class="select__element" onclick="select(this, 'world')">Все</p>
+                        </div>
+                        <input id="region_input" type="hidden" name="region" value ="{{region}}"/>
+                        <input type="hidden" name="select1" class="hidden-select__view select-world" value="1" />
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Сохранить" class="save-settings__btn" />
+        </form>
+    </div>
+</div>
 {{> footer}}

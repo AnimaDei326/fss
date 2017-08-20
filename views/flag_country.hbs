@@ -1,14 +1,28 @@
 {{> header}}
-<h1 id="{{x}}">{{country}} </h1>
-<p>{{current}} / {{size}} </p>
-<p><a href="/gameover">сдаться</a></p>
-<div class="start">
-    <div class="img">
+<div class="content__wrap">
+    <h4 id="{{x}}" class="block__title">{{country}}</h4>
+
+    <ul class="country-flags__list">
         {{#each rows}}
-            <a onclick="javascript:answer_fc('{{this.id}}')">
-                <img src="/images/flags/{{this.id}}.svg" />
-            </a>
+            <li class="flags-list__element">
+                <a onclick="javascript:answer_fc('{{this.id}}')">
+                    <img src="/images/flags/{{this.id}}.svg" />
+                </a>
+            </li>
         {{/each}}
+    </ul>
+
+    <!-- Линия прогресса -->
+    <div class="progress-line__wrap">
+        <span class="progress-line__count">{{current}} / {{size}}</span>
+        <span class="progress-line">
+            <span class="progress-line__element" style="width: {{progress}}%;">&nbsp;</span>
+        </span>
+        <a href="/gameover" class="end_btn">сдаться</a>
     </div>
+    <!-- //Линия прогресса -->
+
 </div>
 {{> footer}}
+
+

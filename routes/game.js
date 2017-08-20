@@ -14,6 +14,7 @@ module.exports = function(app){
         if(level.easyS == true){
             res.render('game_change', {
             title: 'Выбор игры',
+            h1: 'Выберите режим игры',
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -22,6 +23,7 @@ module.exports = function(app){
         }else if(level.hardS == true){
             res.render('game_change_hard', {
             title: 'Выбор игры',
+            h1: 'Выберите режим игры',
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -31,6 +33,10 @@ module.exports = function(app){
     });
     //Игра угадать флаг по стране (легкий уровень)
     app.get('/game/flag_country', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -44,14 +50,18 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('flag_country', {
                 title: 'Игра',
+                h1: 'Угадай флаг',
                 rows: arrUser[request.session.id].arrRandom,
                 country: arrUser[request.session.id].arrCorrect.country,
                 x: xCrypt,
-                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                size:  arrUser[request.session.id].arrWait.length,
+                current : c,
+                size:  s,
+                progress: c/s*100,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -62,7 +72,11 @@ module.exports = function(app){
     });
 
     //Игра угадать флаг по стране (сложный уровень)
-    app.get('/game/flag_country_hard', function(request, result, next){
+    app.get('/game/flag_country_hard', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -88,13 +102,17 @@ module.exports = function(app){
                         };
                         sortArr = arrSort(sortArr, 4);
                         var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
-                        result.render('flag_country_hard', {
+                        let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                        let s = arrUser[request.session.id].arrWait.length;
+                        response.render('flag_country_hard', {
                             title: 'Игра',
-                            row: sortArr,
+                            h1: 'Угадай флаг',
+                            rows: sortArr,
                             country: arrUser[request.session.id].arrCorrect.country,
                             x: xCrypt,
-                            current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                            size: arrUser[request.session.id].arrWait.length,
+                            current : c,
+                            size:  s,
+                            progress: c/s*100,
                             partials: {
                                 header: 'partials/header',
                                 footer: 'partials/footer'
@@ -108,7 +126,11 @@ module.exports = function(app){
     });
 
     //Игра угадать страну по флагу (легкий уровень)
-    app.get('/game/country_flag', function(request, result, next){
+    app.get('/game/country_flag', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -122,14 +144,18 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
-                result.render('country_flag', {
+                response.render('country_flag', {
                 title: 'Игра',
+                h1: 'Угадай страну',
                 rows: arrUser[request.session.id].arrRandom,
                 imgSrc : arrUser[request.session.id].arrCorrect.id,
                 x: xCrypt,
-                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                size: arrUser[request.session.id].arrWait.length,
+                current : c,
+                size:  s,
+                progress: c/s*100,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -140,7 +166,11 @@ module.exports = function(app){
     });
 
     //Игра угадать страну по флагу (сложный уровень)
-    app.get('/game/country_flag_hard', function(request, result, next){
+    app.get('/game/country_flag_hard', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -155,13 +185,16 @@ module.exports = function(app){
             }else{
                 randomElements(res, request);
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.country);
-                result.render('country_flag_hard', {
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
+                response.render('country_flag_hard', {
                 title: 'Игра',
                 h1: 'Угадай страну',
                 imgSrc : arrUser[request.session.id].arrCorrect.id,
                 x: xCrypt,
-                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                size: arrUser[request.session.id].arrWait.length,
+                current : c,
+                size:  s,
+                progress: c/s*100,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -172,7 +205,11 @@ module.exports = function(app){
     });
 
     //Игра угадать столицу по стране (легкий уровень)
-    app.get('/game/capital_country', function(request, result, next){
+    app.get('/game/capital_country', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -186,14 +223,18 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
-                result.render('capital_country', {
+                response.render('capital_country', {
                 title: 'Игра',
+                h1: 'Угадай столицу',
                 rows: arrUser[request.session.id].arrRandom,
                 country: arrUser[request.session.id].arrCorrect.country,
                 x: xCrypt,
-                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                size: arrUser[request.session.id].arrWait.length,
+                current : c,
+                size:  s,
+                progress: c/s*100,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -204,7 +245,11 @@ module.exports = function(app){
     });
 
     //Игра угадать столицу по стране (сложный уровень)
-    app.get('/game/capital_country_hard', function(request, result, next){
+    app.get('/game/capital_country_hard', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -219,13 +264,16 @@ module.exports = function(app){
             }else{
                 randomElements(res, request);
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.capital);
-                result.render('capital_country_hard', {
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
+                response.render('capital_country_hard', {
                     title: 'Игра',
                     h1: 'Угадай столицу',
                     country: arrUser[request.session.id].arrCorrect.country,
                     x: xCrypt,
-                    current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                    size: arrUser[request.session.id].arrWait.length,
+                    current : c,
+                    size:  s,
+                    progress: c/s*100,
                     partials: {
                         header: 'partials/header',
                         footer: 'partials/footer'
@@ -236,7 +284,11 @@ module.exports = function(app){
     });
 
     //Игра угадать страну по столице (легкий уровень)
-    app.get('/game/country_capital', function(request, result, next){
+    app.get('/game/country_capital', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -251,13 +303,17 @@ module.exports = function(app){
             }else{
                 randomElements(res, request);
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
-                result.render('country_capital', {
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
+                response.render('country_capital', {
                 title: 'Игра',
+                h1: 'Угадай страну',
                 rows: arrUser[request.session.id].arrRandom,
                 capital: arrUser[request.session.id].arrCorrect.capital,
                 x: xCrypt,
-                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                size: arrUser[request.session.id].arrWait.length,
+                current : c,
+                size:  s,
+                progress: c/s*100,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -268,7 +324,11 @@ module.exports = function(app){
     });
 
     //Игра угадать страну по столице (сложный уровень)
-    app.get('/game/country_capital_hard', function(request, result, next){
+    app.get('/game/country_capital_hard', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){restart(request);}
         let filtr = filtrRegion(request);
         let operation = '';
@@ -283,13 +343,16 @@ module.exports = function(app){
             }else{
                 randomElements(res, request);
                 var xCrypt = crypt(arrUser[request.session.id].arrCorrect.country);
-                result.render('country_capital_hard', {
+                let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
+                let s = arrUser[request.session.id].arrWait.length;
+                response.render('country_capital_hard', {
                 title: 'Игра',
                 h1: 'Угадай страну',
                 capital: arrUser[request.session.id].arrCorrect.capital,
                 x: xCrypt,
-                current : arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len,
-                size: arrUser[request.session.id].arrWait.length,
+                current : c,
+                size:  s,
+                progress: c/s*100,
                 partials: {
                     header: 'partials/header',
                     footer: 'partials/footer'
@@ -301,8 +364,13 @@ module.exports = function(app){
 
     //проверка верного ответа (легкий уровень)
     app.get('/game/check/:id', function(request, res, next){
+        if(arrUser[request.session.id] == undefined){
+            res.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){
             res.redirect('/gameover');
+            return;
         }else{
             let find = true;
             for(var i=0; find; i++){
@@ -329,8 +397,13 @@ module.exports = function(app){
 
     //проверка верного ответа (сложный уровень)
     app.get('/game/check_hard/:country', function(request, res, next){
+        if(arrUser[request.session.id] == undefined){
+            res.redirect('/game');
+            return;
+        }
         if(arrUser[request.session.id].gameOver){
             res.redirect('/gameover');
+            return;
         }else{
             let find = true;let correct;
             for(var i=0; find; i++){
@@ -363,74 +436,108 @@ module.exports = function(app){
 
     //конец игры
     app.get('/gameover', function(req, response, next){
+        if(arrUser[req.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
         if(arrUser[req.session.id].gameOver == true){
             response.redirect('/game');
+            return;
         }else{
-            arrUser[req.session.id].gameOver = true;
-            let backURL = req.header('Referer') || '/';
             let filtr = {
                 table: 'records',
-                order: 'score'
+                order: 'score',
+                limit: 10
             };
-            Games.showAllOrderByName(filtr, function(err, result){
+            Games.showAllOrderByNameDesc(filtr, function(err, res){
                 if(err){
                     console.log(err);
-                }else{
-                    let reg = F.getRegion(req);
-                    let levObj = F.getLevel(req); let lev; let scoreWin; 
-                    if(levObj.easyS){
-                        lev = 'нормальный';
-                        scoreWin = arrUser[req.session.id].countWins *10;
-                    }else{
-                        lev = 'сложный';
-                        scoreWin = arrUser[req.session.id].countWins *40;
-                    }
-                    let resultScore = scoreWin - (arrUser[req.session.id].countLoses * 3);
-                    if(resultScore > 0){
-                        let begin = backURL.indexOf('/game');
-                        let end = backURL.indexOf('_hard'); let game;
-                        if(end < 0 ){
-                            game = backURL.substring(begin + 6, backURL.length);
-                        }else{
-                            game = backURL.substring(begin + 6, end);
-                        }
-                        if(result.length < 10 || (resultScore > result[result.length - 10].score) ){
-                            console.log('последняя десятка рекорд ' + result[result.length - 10].score);
-                            console.log('сейчас лучший рекорд ' + resultScore);
-                            response.render('new_record', {
-                                title: 'Новый рекорд',
-                                gamename : game,
-                                partials: {
-                                    header: 'partials/header',
-                                    footer: 'partials/footer'
-                                }
-                            });
-                        }else{
-                            response.render('gameover',{
-                                title: 'Конец игры',
-                                wins: arrUser[req.session.id].countWins,
-                                loses: arrUser[req.session.id].countLoses,
-                                length: arrUser[req.session.id].arrWait.length,
-                                back: backURL,
-                                partials: {
-                                    header: 'partials/header',
-                                    footer: 'partials/footer'
-                                }
-                            });
-                        }
-                    }else{
-                        response.render('gameover',{
-                            title: 'Конец игры',
-                            wins: arrUser[req.session.id].countWins,
-                            loses: arrUser[req.session.id].countLoses,
-                            length: arrUser[req.session.id].arrWait.length,
-                            back: backURL,
-                            partials: {
-                                header: 'partials/header',
-                                footer: 'partials/footer'
+                }else {
+                    arrUser[req.session.id].gameOver = true;
+                    let backURL = req.header('Referer') || '/';
+                    let filtr = {
+                        table: 'records',
+                        order: 'score'
+                    };
+                    Games.showAllOrderByName(filtr, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let reg = F.getRegion(req);
+                            let levObj = F.getLevel(req);
+                            let lev;
+                            let scoreWin;
+                            let kof = false;
+                            if (levObj.easyS) {
+                                lev = 'нормальный';
+                                scoreWin = arrUser[req.session.id].countWins * 10;
+                            } else {
+                                lev = 'сложный';
+                                scoreWin = arrUser[req.session.id].countWins * 40;
+                                kof = true;
                             }
-                        });
-                    }
+                            let resultScore = scoreWin - (arrUser[req.session.id].countLoses * 3);
+                            if (resultScore > 0) {
+                                let begin = backURL.indexOf('/game');
+                                let end = backURL.indexOf('_hard');
+                                let game;
+                                if (end < 0) {
+                                    game = backURL.substring(begin + 6, backURL.length);
+                                } else {
+                                    game = backURL.substring(begin + 6, end);
+                                }
+                                if (result.length < 10 || (resultScore > result[result.length - 10].score)) {
+                                    response.render('new_record', {
+                                        title: 'Новый рекорд',
+                                        h1: 'Поздравляем!',
+                                        gamename: game,
+                                        scoreWins: scoreWin,
+                                        scoreLoses: arrUser[req.session.id].countLoses * 3,
+                                        result: resultScore,
+                                        level: kof,
+                                        partials: {
+                                            header: 'partials/header',
+                                            footer: 'partials/footer'
+                                        }
+                                    });
+                                } else {
+                                    response.render('gameover', {
+                                        title: 'Конец игры',
+                                        h1: 'Конец игры',
+                                        wins: arrUser[req.session.id].countWins,
+                                        loses: arrUser[req.session.id].countLoses,
+                                        scoreWins: scoreWin,
+                                        scoreLoses: arrUser[req.session.id].countLoses * 3,
+                                        result: resultScore,
+                                        level: kof,
+                                        back: backURL,
+                                        rows: res,
+                                        partials: {
+                                            header: 'partials/header',
+                                            footer: 'partials/footer'
+                                        }
+                                    });
+                                }
+                            } else {
+                                response.render('gameover', {
+                                    title: 'Конец игры',
+                                    h1: 'Конец игры',
+                                    wins: arrUser[req.session.id].countWins,
+                                    loses: arrUser[req.session.id].countLoses,
+                                    scoreWins: scoreWin,
+                                    scoreLoses: arrUser[req.session.id].countLoses * 3,
+                                    result: resultScore,
+                                    level: kof,
+                                    back: backURL,
+                                    rows: res,
+                                    partials: {
+                                        header: 'partials/header',
+                                        footer: 'partials/footer'
+                                    }
+                                });
+                            }
+                        }
+                    });
                 }
             })
         }
@@ -438,6 +545,14 @@ module.exports = function(app){
     
     //Новый рекорд
     app.post('/game/new_record', function(request, response, next){
+        if(arrUser[request.session.id] == undefined){
+            response.redirect('/game');
+            return;
+        }
+        if(arrUser[request.session.id].len == 0){
+            response.redirect('/liaders');
+            return;
+        }
         if(request.body.username && request.body.city){
             let reg = F.getRegion(request);
             let levObj = F.getLevel(request); let lev; let scoreWin; 
@@ -472,7 +587,8 @@ module.exports = function(app){
                 if(error){
                     console.log(error);
                 }else{
-                    response.send('ok!');
+                    restart(request);
+                    response.redirect('/liaders');
                 }
             })
         }else{

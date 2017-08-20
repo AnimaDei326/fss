@@ -119,6 +119,20 @@ const Games = {
             connection.release();
         });
     },
+    selectOrderByNameDesc: function(filtr, callback){
+        pool.getConnection(function(error, connection){
+            if(error){
+                console.log("Error", error);
+                callback(error);
+            }else{
+                let {table, column, value, order} = filtr;
+                connection.query("SELECT * FROM ?? WHERE ?? = ? ORDER BY ?? DESC", [table, column, value, order], function(err, result){
+                    callback(null, result);
+                });
+            }
+            connection.release();
+        });
+    },
     insert: function(filtr, callback){
         pool.getConnection(function(error, connection){
             if(error){

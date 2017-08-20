@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS regions, countries, users, likes, records, facts;
+DROP TABLE IF EXISTS regions, countries, users, likes, records, facts, history, comments;
 
 CREATE TABLE countries(
     id INTEGER NOT NULL AUTO_INCREMENT,
@@ -55,8 +55,29 @@ CREATE TABLE facts(
     PRIMARY KEY (id)
 );
 
+CREATE TABLE history(
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    id_session NVARCHAR(50),
+    id_fact INTEGER NOT NULL,
+    up BOOLEAN,
+    down BOOLEAN,
+    PRIMARY KEY (id)
+);
+CREATE TABLE comments(
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    id_fact INTEGER NOT NULL,
+    author NVARCHAR(50),
+    text_main NVARCHAR(500),
+    up BOOLEAN,
+    down BOOLEAN,
+    PRIMARY KEY (id)
+);
+
 INSERT INTO users SET password = "q", name = "admin";
 ALTER TABLE countries ADD FOREIGN KEY (id_region) REFERENCES regions(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE history ADD FOREIGN KEY (id_fact) REFERENCES facts(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE comments ADD FOREIGN KEY (id_fact) REFERENCES facts(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE likes ADD FOREIGN KEY (id_1) REFERENCES countries(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE likes ADD FOREIGN KEY (id_2) REFERENCES countries(id) ON UPDATE CASCADE ON DELETE CASCADE;

@@ -2,6 +2,7 @@ var old_country = "";
 var old_capital = "";
 var old_region = "";
 var x = "";
+var countWindow = 0;
 
 function edit(id){
     var collinput = tbody.getElementsByTagName('input');
@@ -149,9 +150,9 @@ function answer_cf_hard(){
         guessText = guess.value.toLowerCase();
     }
     if( decrypt(x, 4).toLowerCase() == guessText ){
-        guess.className = 'correct';
+        guess.className = 'correctInput';
     }else{
-        guess.className = 'wrong';
+        guess.className = 'wrongInput';
     }
     setTimeout(function(){
         let go = '/game/check_hard/' + guessText;
@@ -212,17 +213,29 @@ function delete_relation(id){
     form.submit();
 }
 function replaceTag(){
-    var textColl = document.body.getElementsByClassName('text');
+    var textColl = document.body.getElementsByClassName('news-block__text');
     var a = ""; var  b = "";
     for(var i=0; i < textColl.length; i++){
         a = textColl[i].innerHTML.replace(/&lt;/g, '<');
         b = a.replace(/&gt;/g, '>');
         textColl[i].innerHTML = b;
     }
+    addClassImg();
+}
+function addClassImg(){
+    var newsBlock = document.body.getElementsByClassName('news-block__text');
+    var imgColl = newsBlock[0].getElementsByTagName('img');
+    for(var i=0; i < imgColl.length; i++){
+        if( i%2 == 0){
+            imgColl[i].className = 'news-text__img text-img__left';
+        }else{
+            imgColl[i].className = 'news-text__img text-img__right';
+        }
+    }
 }
 function Init(){ //инициализация iframe
-        var frame = iframe_redactor.contentDocument.firstChild.lastChild;
-        document.getElementById("iframe_redactor").contentWindow.document.designMode = "On";
+    var frame = iframe_redactor.contentDocument.firstChild.lastChild;
+    document.getElementById("iframe_redactor").contentWindow.document.designMode = "On";
 }
 function doStyle(style){ //приминения стиля iframe
     document.getElementById("iframe_redactor").contentWindow.document.execCommand(style, false, null);
@@ -231,11 +244,53 @@ function addImg(){
     var name = img.value;
     var tag = "<img src='/images/facts/" + name + "'/>";
     iframe_redactor.contentDocument.firstChild.lastChild.innerHTML += tag;
+    addClass();
 }
+function addClass(){
+    var collimg = iframe_redactor.contentDocument.firstChild.lastChild.getElementsByTagName('img');
+    for(var i = 0; i < collimg.length; i++){
+        collimg[i].style.width = '12px';
+    }
+}
+
 function go(){ //забрать текст в обычную текстарею
-    text_main.innerHTML = iframe_redactor.contentDocument.firstChild.lastChild.innerHTML;
+    text_main.innerHTML = iframe_redactor.contentDocument.firstChild.lastChild.innerHTML.replace(/ style="width: 12px;"/g, '');
     form.submit();
 }
+function copyTextToFrame(){ //забрать текст в iframe при редактировании
+    iframe_redactor.contentDocument.firstChild.lastChild.innerHTML = text_main.innerHTML;
+}
+function select(element, type) {
+    var value = element.getAttribute("data-value"); // Считываем значение выбранного элемента
+    var nodes = element.parentNode.childNodes; // Получаем все остальные элементы
+
+    for (var i = 0; i < nodes.length; i++) {
+        /* Отфильтровываем посторонние элементы text и input */
+        if (nodes[i] instanceof HTMLParagraphElement) {
+
+            if (value == nodes[i].getAttribute("data-value")) {
+                nodes[i].className = "select__element active";
+            }
+            else nodes[i].className = "select__element";
+        }
+    }
+
+    // закрываем список элементов
+    element.parentNode.style.display = "none";
+
+    // меняем результат в главном элементе
+    element.parentNode.parentNode.childNodes[1].innerHTML = element.innerHTML + '<i class="select__arrow">&nbsp;</i>';
+
+    if (type == "world") {
+        document.getElementsByClassName("hidden-select__view select-world")[0].value = value;
+        region_input.value = value;
+    } else {
+        document.getElementsByClassName("hidden-select__view select-lvl")[0].value = value;
+        level_input.value = value;
+    }
+}
+
+
 window.onload = function(){
     let path = window.location.pathname;
     if (path == '/game/flag_country' || 
@@ -247,20 +302,70 @@ window.onload = function(){
         path == '/game/capital_country_hard' ||
         path == '/game/country_capital_hard'
         ){
-            x = document.body.firstChild.id;
-            document.body.firstChild.id = "h1";
+        h = document.body.getElementsByTagName('h4');
+        x = h[0].id;
+
+        h[0].id = "h4";
     }
     if( path == '/game/country_flag_hard' ||
         path == '/game/capital_country_hard' ||
         path == '/game/country_capital_hard'){
         guess.addEventListener('keyup', enter, false);
     }
-    if(path == '/settings'){
-        var collopt = region.children;
-        for(var i = 0; collopt.length > i; i++){
-            if(collopt[i].value == defaultRegion.value){
-                collopt[i].selected = true;
-            }
+    if(path.indexOf('admin/fact/redact') > 0){
+        Init();
+    }
+
+    // открытие/закрытие меню при клике
+    var burgerBtn = document.getElementsByClassName('burger__btn')[0];
+    burgerBtn.addEventListener('click', function () {
+        var burgerMenu = document.getElementsByClassName('burger-menu')[0];
+        menuStyle =  window.getComputedStyle(burgerMenu, null);
+
+        if (menuStyle.display == "block") {
+            burgerMenu.style.display = "none";
+        } else {
+            burgerMenu.style.display = "block";
         }
+    });
+
+    // закрытие меню при клике вне области меню
+    window.addEventListener('click', function (e) {
+        var burgerMenu = document.getElementsByClassName('burger-menu')[0],
+            burgerBtn = document.getElementsByClassName('burger__btn')[0],
+
+            // дополнительно для селекта
+            selectElements = document.getElementsByClassName('select__elements'),
+            selectView = document.getElementsByClassName('visible-select__view');
+
+
+        if (!burgerMenu.contains(e.target) && !burgerBtn.contains(e.target)) { burgerMenu.style.display = 'none' }
+
+
+        // доп. закрытие элементов селека при клике вне зоны...
+        for (var i = 0; i < selectView.length; i++) {
+            if (!selectElements[i].contains(e.target) && !selectView[i].contains(e.target)) { selectElements[i].style.display = 'none' }
+        }
+
+    })
+
+
+    // стилизация кастомного селекта
+    var selectView = document.getElementsByClassName('visible-select__view');
+
+    // функция закрытия и открытия при клике по элементу
+    function toggleSelectElements(e, event) {
+        var selectElements = document.getElementsByClassName('select__elements')[e];
+
+        if (window.getComputedStyle(selectElements, null).display == "none") {
+            selectElements.style.display = "block";
+        } else {
+            selectElements.style.display = "none";
+        }
+    }
+
+    // навешиваем функцию на каждый элемент
+    for (var i = 0; i < selectView.length; i++) {
+        selectView[i].addEventListener('click', toggleSelectElements.bind(null, i))
     }
 }

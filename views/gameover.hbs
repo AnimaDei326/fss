@@ -1,5 +1,47 @@
 {{> header}}
-Вы угадали {{wins}}, не угадали {{loses}} из {{length}}
-<a href="{{back}}">еще раз</a>
-<a href="/">главное меню</a>
+<div class="content__wrap">
+    <div class="message__wrap">
+        <p class="message__result-text">Ваш результат: <span>{{result}}</span></p>
+        <div class="buttons__wrap">
+            <a href="{{back}}" class="buttons__element btn__again">Еще разок</a>
+        </div>
+        <div class="counting__wrap">
+            <h4 class="counting__title">Расчет результата</h4>
+            <p>Верно угаданных: {{wins}} x 10 баллов х {{#if level}} 4 {{else}} 1 {{/if}}коэффициент сложности = {{scoreWins}}</p>
+            <p>Неверно угаданных: {{loses}} х 3 балла = {{scoreLoses}}</p>
+            <p>Результат: {{scoreWins}} - {{scoreLoses}} = {{result}}</p>
+        </div>
+    </div>
+</div>
+{{#if rows}}
+    <h2 style="text-align: center; margin: 20px;">Лидеры</h2>
+    <div class="main-table__wrap">
+        <table class="main-table">
+            <thead class="main-table__header">
+            <tr class="main-table__line">
+                <td class="main-table__row">Имя</td>
+                <td class="main-table__row">Город</td>
+                <td class="main-table__row">Результат</td>
+                <td class="main-table__row">Уровень сложности</td>
+                <td class="main-table__row">Тип игры</td>
+                <td class="main-table__row">Часть Света</td>
+            </tr>
+            </thead>
+            <tbody class="main-table__body">
+            {{#each rows}}
+                <tr class="main-table__line">
+                    <td class="main-table__row">{{this.username}}</td>
+                    <td class="main-table__row">{{this.city}}</td>
+                    <td class="main-table__row">{{this.score}}</td>
+                    <td class="main-table__row">{{this.level_game}}</td>
+                    <td class="main-table__row">{{this.game}}</td>
+                    <td class="main-table__row">{{this.region}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{else}}
+    <h2>Пока результатов нет</h2>
+{{/if}}
 {{> footer}}

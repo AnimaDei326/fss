@@ -3,12 +3,12 @@
     {{#if message}}
         <h1>{{message}}</h1>
     {{/if}}
-    <form action="/admin/add_fact" method="POST" enctype="multipart/form-data" id="form">
-        <input name="title_preview" placeholder="Заголовок для превью" /><br/><br/>
-        <input name="img_preview" placeholder="картинка для превью"/><br/><br/>
+    <form action="/admin/fact/redact/{{row.id}}" method="POST" enctype="multipart/form-data" id="form">
+        <input name="title_preview" placeholder="Заголовок для превью" value="{{row.title_preview}}"/><br/><br/>
+        <input name="img_preview" placeholder="картинка для превью" value="{{row.img_preview}}"/><br/><br/>
         <h4>Текст для превью</h4>
-        <textarea name="text_preview" style="width: 1000px; height: 200px"></textarea><br/>
-        <input name="title_main" placeholder="Заголовок" /><br/><br/>
+        <textarea name="text_preview" style="width: 1000px; height: 200px">{{row.text_preview}}</textarea><br/>
+        <input name="title_main" placeholder="Заголовок" value="{{row.title_main}}"/><br/><br/>
         <button type="button" onclick="doStyle('bold')"><b>b</b></button>
         <button type="button" onclick="doStyle('italic')"><i>i</i></button>
         <button type="button" onclick="doStyle('underline')"><u>u</u></button>
@@ -22,6 +22,9 @@
         <input type="file" multiple name="foo"/><br/>
         <button type="reset" class="ok">очистить</button>
         <button type="button" class="ok" onclick="go()">сохранить</button>
-        <textarea id="text_main" name="text_main" style="visibility: hidden;"></textarea>
+        <textarea id="text_main" name="text_main" style="visibility: hidden;">{{row.text_main}}</textarea>
     </form>
+    <script>
+       copyTextToFrame();
+    </script>
 {{> footer}}

@@ -1,0 +1,245 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+}
+body{
+    background-color: #eee;
+}
+html, body, .main_menu{
+    height: 100%;
+}
+a{
+    text-decoration: none;
+    color: #555;
+    display: block;
+}
+.icon{
+    width: 12px;
+}
+.record{
+    height: 40px;
+    margin: 20px;
+    padding: 10px;
+    border: none;
+    font-family: sans-serif;
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 12px;
+}
+.record:hover{
+    background-color: aquamarine;
+}
+.fact img{
+    width: 300px;
+    text-align: center;
+}
+.text{
+    text-align: center;
+}
+.check{
+    height: 30px;
+    background: white;
+    width: 248px;
+    padding-top: 20px;
+    font-family: sans-serif;
+    margin-top: 20px;
+}
+.check:hover{
+    background-color: azure;
+}
+span{
+    display: block;
+}
+p{
+    text-align: end;
+    margin-right: 20%;
+}
+.flex{
+    display: flex;
+    height: 50%;
+}
+.game, .education, .settings, .liaders{
+    width: 50%;
+    border: 5px solid #555;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 30px;
+}
+.game a, .education a, .settings a, .liaders a{
+    text-align: center;
+    font-size: 60px;
+    font-family: cursive;
+}
+.game{
+    background-color: limegreen;
+}
+.education{
+    background-color:#f3de2e;
+}
+.settings{
+    background-color: lightgray;
+}
+.liaders{
+    background-color: #f257c8;
+}
+.game:hover{
+    background-color: chartreuse;
+}
+.education:hover{
+    background-color: yellow;
+}
+.settings:hover{
+    background-color: white;
+}
+.liaders:hover{
+    background-color: violet;
+}
+form[action="/ad"]{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.ok, .back{
+    padding: 10px 30px;
+    margin: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 20px;
+    border: none;
+}
+.ok{
+    background-color: turquoise;
+}
+.back{
+    background-color: hotpink;
+    height: auto;
+    width: 30px;
+}
+input, select{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 20px;
+    border: none;
+    height: 35px;
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+input:focus, select:focus, button:focus{
+     outline: none;
+}
+.error{
+    text-align: center;
+    color: firebrick;
+    margin: 33px;
+}
+.list, .relation {
+    border: solid 1px #5BD908;
+    border-collapse: collapse;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    width: 100%;
+    -webkit-border-horizontal-spacing: 0px;
+    -webkit-border-vertical-spacing: 0px;
+}
+.list td, .relation td{
+    border: solid 1px #5BD908;
+    vertical-align: middle;
+    text-align: center;
+}
+ .countries tr td img{
+    width: 150px;
+    margin: 6px;
+}
+.relation tr td{
+    width: 20% !important ;
+}
+.world tr td img{
+    width: 150px;
+    margin: 6px;
+}
+ .countries tr td:nth-child(2n){
+    width: 30%;
+}
+ .countries tr td:nth-child(3n){
+    width: 30%;
+}
+ .countries tr td:nth-child(4n){
+    width: 15%;
+}
+ .countries tr td:last-child{
+    width: 15%;
+}
+
+ .regions tr td:first-child{
+    width: 60%;
+}
+td{
+    width: 200px;
+}
+.list tr{
+   height: 60px;
+}
+form{
+    text-align: center;
+}
+.list input{
+    margin-top: 0px;
+}
+.admin_header {
+    min-height: 100px;
+}
+li{
+    list-style-type: none;
+    float: left;
+    padding: 20px;
+}
+li:hover{
+    background-color: turquoise;
+}
+.success{
+    text-align: center;
+    color: tomato;
+}
+.start img{
+    width: 300px;
+    margin: 10px;
+    border: 20px solid #eee;
+}
+#guess{
+    border: 20px solid #eee;
+    text-transform: capitalize;
+}
+.start a{
+    cursor: pointer;
+}
+.icons{
+    width: 300px;
+    height: 200px;
+    background-size: cover;
+}
+h1, h2{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+.start{
+    width: 70%;
+    text-align: center;
+}
+.start a:nth-child(2n){
+    float: none;
+}
+.img a{
+    display: inline;
+}
+.correct{
+    border: 20px solid aquamarine !important ;
+}
+.wrong{
+    border: 20px solid crimson !important ;
+}

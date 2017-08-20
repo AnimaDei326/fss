@@ -1,0 +1,34 @@
+{{> header}}
+    <div class="content__wrap">
+        <div class="news__search">
+            <form action="" class="search-form">
+                <input placeholder="поиск.." class="search__field">
+                <input type="submit" value="" class="search__btn">
+            </form>
+        </div>
+        <div class="news-blocks__wrap">
+            {{#if rows}}
+                {{#each rows}}
+                    <!-- новостной блок -->
+                    <div class="news-block__wrap">
+                        <h3 class="news-block__title">{{this.title_preview}}</h3>
+                        <img src="/images/facts/{{this.img_preview}}" alt="image" class="news-block__img">
+                        <p class="news-block__text">{{this.text_preview}}</p>
+
+                        <div class="news-block__footer">
+                            <ul class="news__soc-info">
+                                <li class="soc-info__element"><span class="soc-info__ico ico-likes">&nbsp;</span>    12</li>
+                                <li class="soc-info__element"><span class="soc-info__ico ico-dislikes">&nbsp;</span> 11</li>
+                                <li class="soc-info__element"><span class="soc-info__ico ico-shares">&nbsp;</span>   2 </li>
+                            </ul>
+
+                            <a href="/fact/{{this.id}}" class="right view__more">Подробнее</a>
+                        </div>
+                    </div> <!-- //новостной блок -->
+                {{/each}}
+            {{else}}
+            <h1>Контент пуст</h1>
+            {{/if}}
+        </div>
+    </div>
+{{> footer}}

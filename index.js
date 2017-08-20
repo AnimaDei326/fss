@@ -32,14 +32,28 @@ require('./models/auth.js')(app);
 require('./routes/login.js')(app);
 require('./routes/admin.js')(app);
 require('./routes/game.js')(app);
+require('./routes/fact.js')(app);
 
 //Главная страница
 app.get('/', function(req, res, next){
-    res.render('index', {
-        title: 'Главная страница',
-        partials: {
-            header: 'partials/header',
-            footer: 'partials/footer'
+    res.redirect('/facts');
+});
+
+//Факты
+app.get('/facts', function(req, result, next){
+    Games.showAll('facts', function(err, res){
+        if(err){
+            console.log(err);
+        }else{
+            result.render('facts',{
+                title: 'Факты',
+                h1: 'Факты',
+                rows: res,
+                partials: {
+                    header: 'partials/header',
+                    footer: 'partials/footer'
+                }
+            });
         }
     })
 });
@@ -74,6 +88,7 @@ app.get('/education', function(req, result, next){
             }
             result.render('education',{
                 title: 'Обучение',
+                h1: 'Обучение',
                 europe: eu,
                 azia: az,
                 africa: af,
@@ -98,6 +113,7 @@ app.get('/settings', function(req, result, next){
         }else{
             result.render('settings',{
                 title: 'Настройки',
+                h1: 'Настройки',
                 rows: res,
                 easy : obj.easyS,
                 hard : obj.hardS,
@@ -116,7 +132,7 @@ app.post('/settings', function(req, result, next){
         req.session.level = req.body.level;
         req.session.region = req.body.region;
     }
-    result.redirect('/');
+    result.redirect('/game');
 });
 //Лидеры
 app.get('/liaders', function(req, result, next){
@@ -131,6 +147,7 @@ app.get('/liaders', function(req, result, next){
         }else{
             result.render('liaders',{
                 title: 'Лидеры',
+                h1: 'Лидеры',
                 rows: res,
                 partials: {
                     header: 'partials/header',
@@ -141,5 +158,48 @@ app.get('/liaders', function(req, result, next){
     })
 });
 
+//Контакты
+app.get('/contacts', function(req, result, next){
+    result.render('contacts',{
+        title: 'Контакты',
+        h1: 'Контакты',
+        partials: {
+            header: 'partials/header',
+            footer: 'partials/footer'
+        }
+    });
+});
+
+//404
+app.all('*', function(req, res, next){
+  res.status(404);
+  if(req.accepts('html')){
+        res.render('404', { 
+            url: req.url,
+            title: '404',
+            h1: 'Страницы не найдена, воспользуйтесь меню, чтобы перейти в другие разделы',
+            partials: {
+                header: 'partials/header',
+                footer: 'partials/footer'
+            }
+        });
+        return;
+    }
+});
+
+app.all('/404', function(req, res, next){
+  res.status(404);
+  if(req.accepts('html')){
+        res.render('404', { 
+            url: req.url,
+            title: '404',
+            partials: {
+                header: 'partials/header',
+                footer: 'partials/footer'
+            }
+        });
+        return;
+    }
+});
 
 app.listen(8888);

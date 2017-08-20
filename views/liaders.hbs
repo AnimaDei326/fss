@@ -1,27 +1,31 @@
 {{> header}}
-    <h1>Лидеры</h1>
     {{#if rows}}
-        <table class="list">
-            <tbody id="tbody" class="countries">
-                <tr>
-                    <td>Имя</td>
-                    <td>Город</td>
-                    <td>Результат</td>
-                    <td>Уровень сложности</td>
-                    <td>Тип игры</td>
-                    <td>Часть Света</td>
-                {{#each rows}}
-                    <tr>
-                        <td>{{this.username}}</td>
-                        <td>{{this.city}}</td>
-                        <td>{{this.score}}</td>
-                        <td>{{this.level_game}}</td>
-                        <td>{{this.game}}</td>
-                        <td>{{this.region}}</td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
+        <div class="main-table__wrap">
+            <table class="main-table">
+                <thead class="main-table__header">
+                <tr class="main-table__line">
+                    <td class="main-table__row">Имя</td>
+                    <td class="main-table__row">Город</td>
+                    <td class="main-table__row">Результат</td>
+                    <td class="main-table__row">Уровень сложности</td>
+                    <td class="main-table__row">Тип игры</td>
+                    <td class="main-table__row">Часть Света</td>
+                </tr>
+                </thead>
+                <tbody class="main-table__body">
+                    {{#each rows}}
+                        <tr class="main-table__line">
+                            <td class="main-table__row">{{this.username}}</td>
+                            <td class="main-table__row">{{this.city}}</td>
+                            <td class="main-table__row">{{this.score}}</td>
+                            <td class="main-table__row">{{this.level_game}}</td>
+                            <td class="main-table__row">{{this.game}}</td>
+                            <td class="main-table__row">{{this.region}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     {{else}}
         <h2>Пока результатов нет</h2>
     {{/if}}
