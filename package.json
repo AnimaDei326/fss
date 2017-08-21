@@ -8,12 +8,13 @@
     "consolidate": "^0.14.5",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.2",
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "express-fileupload": "^0.1.4",
     "handlebars": "^4.0.10",
-    "mysql": "^2.13.0",
+    "mysql": "^2.14.1",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "uuid-v4": "^0.1.0"
   },
   "scripts": {
     "test": "console.log('is alive');"
@@ -24,5 +25,13 @@
     "capital"
   ],
   "author": "Anima Dei",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnimaDei326/fss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AnimaDei326/fss/issues"
+  },
+  "homepage": "https://github.com/AnimaDei326/fss#readme"
 }

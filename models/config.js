@@ -4,14 +4,14 @@ const connection = mysql.createConnection({
     host : 'localhost',
     database : 'fss',
     user : 'root',
-    password : '1111'
+    password : ''
 });
 
 const pool = mysql.createPool({
     host : 'localhost',
     database : 'fss',
     user : 'root',
-    password : '1111'
+    password : ''
 });
 
 module.exports = {connection, pool};

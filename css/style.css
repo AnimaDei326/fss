@@ -263,7 +263,10 @@ body {
   font-size: 21px;
   margin-bottom: 10px;
 }
-.country-flags__list { overflow: hidden; }
+.country-flags__list {
+  height: 100%;
+  width: 100%;
+}
 
 .flags-list__element {
   width: 50%;
@@ -271,20 +274,25 @@ body {
   list-style: none;
   margin-top: 20px;
   padding: 0;
+  height: 150px;
 }
 
 .flags-list__element:nth-child(2n)   { padding-left: 10px; }
 .flags-list__element:nth-child(2n+1) { padding-right: 10px; }
 
 
-.flags-list__element a { display: inline-block; }
+.flags-list__element a {
+  display: inline-block;
+  height: inherit;
+}
 
 .flags-list__element img {
   width: 100%;
-  border: 4px solid #fff;
+  border: 4px solid #ececec;
   border-radius: 4px;
+  max-height: 150px;
 }
-.flags-list__element img:hover { border: 4px solid #428BCA; }
+.flags-list__element img:hover { box-shadow: 0 0  13px 0 rgba(66, 138, 201, 0.72)}
 
 .correct{
   border: 4px solid green !important ;
