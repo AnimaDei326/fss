@@ -767,6 +767,9 @@ input:focus, select:focus, button:focus{
   margin-right: 10px;
   cursor: pointer;
 }
+.soc-info__element img{
+  width: 60px;
+}
 .soc-info__element:hover {
   color: #3876AC;
 }

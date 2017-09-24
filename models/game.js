@@ -5,7 +5,7 @@ const Games = {
         pool.getConnection(function(error, connection){
             if(error){
                 console.log("Error", error);
-                callback(err);
+                callback(error);
             }else{
                 let {table, column1, value1, column2, value2} = filtr;
                 connection.query("SELECT * FROM ?? WHERE ?? = ? AND ?? = ?", [table, column1, value1, column2, value2], function(err, result){
@@ -71,6 +71,43 @@ const Games = {
                 callback(error);
             }else{
                 connection.query("SELECT * FROM ?? ", table, function(err, result){
+                    callback(null, result);
+                });
+            }
+            connection.release();
+        });
+    },
+    selectPart: function(filtr, callback){
+        pool.getConnection(function(error, connection){
+            if(error){
+                console.log("Error", error);
+                callback(error);
+            }else{
+                let {id1, id2, table1, table2, column1, column2, value1, value2, beginningWith, amount} = filtr;
+                // console.log("SELECT *, (SELECT COUNT(" + id2 +
+                //     ") FROM " + table2 +
+                //     " WHERE " + table1 + "." + id1 + " = " +
+                //     id2 +
+                //     " AND " + column2+
+                //     " = " + value2 +
+                //     ") as d, " +
+                //     "(SELECT COUNT(" + id2+
+                //     ") FROM " + table2+
+                //     " WHERE " + table1 + "." + id1 +
+                //     " = " + id2 +
+                //     " AND " + column1 +
+                //     " = " + value1 +
+                //     ") as l FROM " + table1 +
+                //     " LIMIT " + beginningWith +
+                //     ", " + amount
+                //     );
+                connection.query("SELECT id, (SELECT COUNT(??) FROM ?? WHERE ??.?? = ?" +
+                    " AND ?? = ?) as dislike, " +
+                    "(SELECT COUNT(??) FROM ?? WHERE ??.?? = ?" +
+                    " AND ?? = ?) as lik FROM ?? LIMIT ?, ?",
+                    [id2, table2, table1, id1, id2, column2, value2, id2, table2, table1, id1,
+                        id2, column1, value1, table1, beginningWith, amount], function(err, result){
+                        console.log(result);
                     callback(null, result);
                 });
             }

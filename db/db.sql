@@ -105,32 +105,6 @@ INSERT INTO `facts` VALUES (23,'Флаг далекой планеты','2192.jp
 UNLOCK TABLES;
 
 --
--- Table structure for table `history`
---
-
-DROP TABLE IF EXISTS `history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `history` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_session` varchar(50) DEFAULT NULL,
-  `id_fact` int(11) NOT NULL,
-  `up` tinyint(1) DEFAULT NULL,
-  `down` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `history`
---
-
-LOCK TABLES `history` WRITE;
-/*!40000 ALTER TABLE `history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `history` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `likes`
 --
 
@@ -246,6 +220,27 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'admin','q');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `rating`
+--
+
+DROP TABLE IF EXISTS `rating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rating` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_fact` int(11) NOT NULL,
+  `id_session` varchar(50) DEFAULT NULL,
+  `is_like` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+   KEY `id_fact` (`id_fact`),
+  CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`id_fact`) REFERENCES `facts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping events for database 'fss'
