@@ -415,7 +415,7 @@ module.exports = function(app){
                 }
             }
             let backURL = request.header('Referer') || '/';
-            if(backURL.indexOf('country_capital') + 1){
+            if(backURL.indexOf('country_capital') + 1 || backURL.indexOf('country_flag') + 1){
                 correct = arrUser[request.session.id].arrCorrect.country.toLowerCase();
             }else{
                 correct = arrUser[request.session.id].arrCorrect.capital.toLowerCase();
@@ -484,7 +484,7 @@ module.exports = function(app){
                                 if (end < 0) {
                                     game = backURL.substring(begin + 6, backURL.length);
                                 } else {
-                                    game = backURL.substring(begin + 6, end);
+                                    game = backURL.substring(begin + 6);
                                 }
                                 if (result.length < 10 || (resultScore > result[result.length - 10].score)) {
                                     response.render('new_record', {
@@ -493,6 +493,8 @@ module.exports = function(app){
                                         gamename: game,
                                         scoreWins: scoreWin,
                                         scoreLoses: arrUser[req.session.id].countLoses * 3,
+                                        wins: arrUser[req.session.id].countWins,
+                                        loses: arrUser[req.session.id].countLoses,
                                         result: resultScore,
                                         level: kof,
                                         partials: {

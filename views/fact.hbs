@@ -1,45 +1,44 @@
 {{> header}}
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="/js/rating.js"></script>
     {{#if rows}}
-        <div class="content__wrap">
-            <!-- новостной блок -->
-            <div class="news-block__wrap">
-                <img src="/images/facts/{{rows.img_preview}}" alt="image" class="news-block__img">
-                <p class="news-block__text">{{rows.text_main}}</p>
+        
+        <div class="content__wrap" style="width: 80%">
+            {{#each rows}}
+            <a href="/facts#{{this.id}}"><img class="back_btn_facts" src="/images/back.png" /></a>
+                <h3 class="news-block__title">{{this.title_main}}</h3>
+                <!-- новостной блок -->
+                <div class="news-block__wrap">
+                    <img src="/images/facts/{{this.img_preview}}" alt="image" class="news-block__img">
+                    <p class="news-block__text">{{this.text_main}}</p>
 
-                <div class="news-block__footer">
-                    <ul class="news__soc-info">
-                        <li class="soc-info__element"><span class="soc-info__ico ico-likes">&nbsp;</span>    12</li>
-                        <li class="soc-info__element"><span class="soc-info__ico ico-dislikes">&nbsp;</span> 11</li>
-                        <li class="soc-info__element"><span class="soc-info__ico ico-shares">&nbsp;</span>   2 </li>
-                    </ul>
-                </div>
-            </div> <!-- //новостной блок -->
-
-            <!-- блок комментариев -->
-            <div class="comments-block__wrap">
-                <div class="write-comment">
-                    <h4 class="comment__title">Оставить комментарий</h4>
-                    <form action="/comment/{{rows.id}}" method="POST" class="write-comment__form">
-                        <input placeholder="Ваше имя" class="comment__name" name="author">
-                        <textarea name="text" id="" cols="30" rows="10" placeholder="Текст комментария" class="comment__area"></textarea>
-                        <input type="submit" value="Отправить" class="comment__btn btn">
-                    </form>
-                    <span class="comments__separate-line">&nbsp;</span>
-                </div>
-
+                    <div class="news-block__footer">
+                        <ul class="news__soc-info">
+                            <li class="soc-info__element {{#if this.i_like}}active{{else}}like{{/if}}" data-parameter="{{this.id}}">{{#if this.i_like}}<img src="/images/active_like.png" />{{else}}<img src="/images/like.png" />{{/if}}<label>{{this.lik}}</label></li>
+                            <li class="soc-info__element {{#if this.i_dislike}}active{{else}}dislike{{/if}}" data-parameter="{{this.id}}">{{#if this.i_dislike}}<img src="/images/active_dislike.png" />{{else}}<img src="/images/dislike.png" />{{/if}}<label>{{this.dislike}}</label></li>
+                            <li class="soc-info__element_views"><img src="/images/view.png" /><label>{{this.views}}</label></li>
+                        </ul>
+                    </div>
+                </div> <!-- //новостной блок -->
+            
+                <!-- блок комментариев -->
+                <div class="comments-block__wrap">
+                    <div class="write-comment">
+                        <h4 class="comment__title">Оставить комментарий</h4>
+                        <form action="/comment/{{this.id}}" method="POST" class="write-comment__form">
+                            <input required placeholder="Ваше имя" class="comment__name" name="author">
+                            <textarea required name="text" id="" cols="30" rows="10" placeholder="Текст комментария" class="comment__area"></textarea>
+                            <input type="submit" value="Отправить" class="comment__btn btn">
+                        </form>
+                        <span class="comments__separate-line">&nbsp;</span>
+                    </div>
+            {{/each}}
                 {{#if comments}}
                     <div class="all_comments">
                         {{#each comments}}
                             <div class="comment-block">
                                 <h4 class="comment__author">{{this.author}}</h4>
                                 <p class="comment__text">{{this.text_main}}</p>
-                                <div class="comment__footer">
-                                    <ul class="comment-addons">
-                                        <li class="soc-info__element"><span class="soc-info__ico ico-likes">&nbsp;</span>    12</li>
-                                        <li class="soc-info__element"><span class="soc-info__ico ico-dislikes">&nbsp;</span> 11</li>
-                                    </ul>
-                                </div>
                             </div>
                         {{/each}}
                     </div>
@@ -47,7 +46,9 @@
             </div>
             <!-- блок комментариев -->
         </div>
-        {{/if}}
+    {{else}}
+        <a class="back_btn" href="/facts">назад</a>
+    {{/if}}
     <script>
        replaceTag();
     </script>

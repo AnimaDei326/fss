@@ -18,6 +18,18 @@ app.use(session({
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
+const nodemailer = require('nodemailer');
+var smtpConfig = {
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
+    auth: {
+        user: 'fss.anima@gmail.com',
+        pass: '326whisper'
+    }
+};
+var transporter = nodemailer.createTransport(smtpConfig);
+
 const Games = require('./models/game');
 const F = require('./models/functions');
 
@@ -36,7 +48,7 @@ require('./routes/fact.js')(app);
 
 //Главная страница
 app.get('/', function(req, res, next){
-    res.redirect('/facts');
+    res.redirect('/game');
 });
 
 //Факты
@@ -48,8 +60,10 @@ app.get('/facts', function(req, result, next){
         table2: 'rating',
         column1: 'is_like',
         column2: 'is_like',
+        column3: 'id_session',
         value1: true,
         value2: false,
+        value3: req.session.id,
         beginningWith: 0,
         amount: 5
     };
@@ -82,8 +96,10 @@ app.get('/more', function(req, result, next){
         table2: 'rating',
         column1: 'is_like',
         column2: 'is_like',
+        column3: 'id_session',
         value1: true,
         value2: false,
+        value3: req.session.id,
         beginningWith: beginningWith,
         amount: 5
     };
@@ -127,7 +143,7 @@ app.get('/like/:id', function(req, response, next){
                   }
                 });
             }else{
-                response.send(true);
+                response.send(false);
             }
         }
     });
@@ -162,7 +178,44 @@ app.get('/dislike/:id', function(req, response, next){
                     }
                 });
             }else{
-                response.send(true);
+                response.send(false);
+            }
+        }
+    });
+});
+
+//Удалить like или dislike
+app.get('/delete_rating/:id', function(req, response, next){
+    let filtr = {
+        table: 'rating',
+        column1: 'id_fact',
+        value1: req.params.id,
+        column2: 'id_session',
+        value2: req.session.id
+    };
+    Games.select(filtr, function(error, result){
+        if(error){
+            console.log(error);
+        }else{
+            if(result){
+                let filtr2 = {
+                    table: 'rating',
+                    column: 'id',
+                    value: result.id
+                };
+                Games.remove(filtr2, function(err, res){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(res){
+                            response.send(true);
+                        }else{
+                            response.send(false);
+                        } 
+                    }
+                });
+            }else{
+                response.send(false);
             }
         }
     });
@@ -212,7 +265,22 @@ app.get('/education', function(req, result, next){
         }
     })
 });
-
+//Поиск
+app.post('/search', function(req, response, next){
+    var filtr = {
+        table: 'countries',
+        column1: 'country',
+        column2: 'capital',
+        value: '%' + req.body.search + '%',
+    };
+    Games.selectLike(filtr, function(err, res){
+        if(err){
+            console.log(err);
+        }else{
+            response.send(res);
+        }
+    });
+});
 //Настройки
 app.get('/settings', function(req, result, next){
     let obj = F.getLevel(req);
@@ -269,8 +337,8 @@ app.get('/liaders', function(req, result, next){
 });
 
 //Контакты
-app.get('/contacts', function(req, result, next){
-    result.render('contacts',{
+app.get('/contacts', function(req, response, next){
+    response.render('contacts',{
         title: 'Контакты',
         h1: 'Контакты',
         partials: {
@@ -278,6 +346,36 @@ app.get('/contacts', function(req, result, next){
             footer: 'partials/footer'
         }
     });
+});
+
+app.post('/contacts', function(req, response, next){
+
+    var name = req.body.name;
+    var email = req.body.email;
+    var message = req.body.message;
+    var mailOptions = {
+        ciphers: 'DES-CBC3-SHA',
+        from: 'fss.anima@gmail.com',
+        to: 'animadei@mail.ru',
+        subject: 'Письмо от ' + name + ' email: ' + email,
+        text: message
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+            response.render('notification',{
+                title: 'Уведомление',
+                h4: 'Уважаемый (ая), ' + name + '!',
+                message: 'Благодарим Вас за обратную связь, в течение суток мы с Вами свяжемся через электронный ящик: ' + email,
+                partials: {
+                    header: 'partials/header',
+                    footer: 'partials/footer'
+                }
+            });
+        }
+      });
 });
 
 //404

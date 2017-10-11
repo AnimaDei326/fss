@@ -34,7 +34,7 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`id`),
   KEY `id_fact` (`id_fact`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_fact`) REFERENCES `facts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,6 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,23,'мое имя','комментарий',2,0),(2,23,'Маня','коммент',0,0),(3,23,'муня','ыы',0,0),(4,24,'1','1',0,0),(5,23,'','',0,0),(6,23,'мое имя','новый комментарий',0,0),(7,23,'123','123',0,0),(8,23,'1','1',0,0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,9 +88,9 @@ CREATE TABLE `facts` (
   `img_preview` varchar(50) DEFAULT NULL,
   `text_preview` varchar(200) DEFAULT NULL,
   `title_main` varchar(200) DEFAULT NULL,
-  `text_main` varchar(5000) DEFAULT NULL,
+  `text_main` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +99,7 @@ CREATE TABLE `facts` (
 
 LOCK TABLES `facts` WRITE;
 /*!40000 ALTER TABLE `facts` DISABLE KEYS */;
-INSERT INTO `facts` VALUES (23,'Флаг далекой планеты','2192.jpg','Мало кто знает, но у наших соседей-планет уже появились собственные флаги с цветами, обозначающими их настоящее и возможное будущее','Флаг Марса','<img src=\"/images/facts/flag_mars.jpg\"><div><p class=\"MsoNormal\">Флаг Марса — не имеющий никакого официального статуса\r\nтриколор, который утверждён как флаг планеты Марс некоммерческой организацией\r\nпо освоению Марса — Марсианским обществом (Mars Society), а также Планетарным\r\nобществом (The Planetary Society). Он не может являться официальным в\r\nюридическом смысле этого слова, так как Договор о космическом пространстве\r\nзапрещает присвоение небесных тел при помощи любых средств.<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">В настоящее время флаг Марса развевается над Флэшинской\r\nмарсианской арктической исследовательской станцией на острове Девон, Канада и\r\nна некоторых объектах городка Марсианской Пустынной научно-исследовательской\r\nстанции в штате Юта, США. Флаг также был отправлен в космос — он был доставлен\r\nна орбиту американским астронавтом Джоном Мейсом Грансфелдом во время\r\nкосмического полёта 1999 года на шаттле «Дискавери».<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">Флаг изображает будущую историю Марса: красная полоса\r\nсимволизирует Марс, каким он является сегодня; зелёная и синяя символизируют\r\nэтапы возможного освоения планеты человечеством, если оно будет иметь желание и\r\nвозможности для этого (то есть терраформирование). <img src=\"/images/facts/flag_mars.jpg\">Цвета флага и их значение\r\nбазируются на известной трилогии Кима Стэнли Робинсона «Красный Марс», «Зелёный\r\nМарс», «Синий Марс». Проект был первоначально предложен инженером NASA Паскалем\r\nЛи.<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">Источник: <a href=\"https://ru.wikipedia.org/wiki/%D0%A4%D0%BB%D0%B0%D0%B3_%D0%9C%D0%B0%D1%80%D1%81%D0%B0\">https://ru.wikipedia.org/wiki/%D0%A4%D0%BB%D0%B0%D0%B3_%D0%9C%D0%B0%D1%80%D1%81%D0%B0</a><o:p></o:p></p></div>'),(24,'','','','','<p class=\"MsoNormal\" style=\"text-align: left;\">Флаг Марса — не имеющий никакого официального статуса\r\nтриколор, который утверждён как флаг планеты Марс некоммерческой организацией\r\nпо освоению Марса — Марсианским обществом (Mars Society), а также Планетарным\r\nобществом (The Planetary Society). Он не может являться официальным в\r\nюридическом смысле этого слова, так как Договор о космическом пространстве\r\nзапрещает присвоение небесных тел при помощи любых средств.<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" style=\"text-align: left;\">В настоящее время флаг Марса развевается над Флэшинской\r\nмарсианской арктической исследовательской станцией на острове Девон, Канада и\r\nна некоторых объектах городка Марсианской Пустынной научно-исследовательской\r\nстанции в штате Юта, США. Флаг также был отправлен в космос — он был доставлен\r\nна орбиту американским астронавтом Джоном Мейсом Грансфелдом во время\r\nкосмического полёта 1999 года на шаттле «Дискавери».<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" style=\"text-align: left;\">Флаг изображает будущую историю Марса: красная полоса\r\nсимволизирует Марс, каким он является сегодня; зелёная и синяя символизируют\r\nэтапы возможного освоения планеты человечеством, если оно будет иметь желание и\r\nвозможности для этого (то есть терраформирование). Цвета флага и их значение\r\nбазируются на известной трилогии Кима Стэнли Робинсона «Красный Марс», «Зелёный\r\nМарс», «Синий Марс». Проект был первоначально предложен инженером NASA Паскалем\r\nЛи.<o:p></o:p></p>'),(25,'','','','','1111111111'),(26,'','','','','<img src=\"/images/facts/44.jpg\">dsdfsdfs'),(27,'','test.jpg','','',''),(28,'','','','','<img src=\"/images/facts/NoORZJls5Yg.jpg\" style=\"width: 12px;\">'),(29,'','','','','<img src=\"/images/facts/1.jpg\" style=\"\">'),(30,'','','','','<img src=\"/images/facts/1.jpg\" style=\"\">'),(31,'','','','','<img src=\"/images/facts/44.jpg\" style=\"width: 12px;\">'),(32,'','','','','<img src=\"/images/facts/44.jpg\"><div>измененный фактик</div>');
+INSERT INTO `facts` VALUES (38,'Флаг другой планеты','2192.jpg','Мало кто знает, но у наших соседей-планет уже появились собственные флаги с цветами, обозначающими их настоящее и возможное будущее','Флаг Марса','<div style=\"text-align: left;\"><p class=\"MsoNormal\" style=\"text-align: center;\">Флаг Марса — не имеющий никакого официального статуса\r\nтриколор, который утверждён как флаг планеты Марс некоммерческой организацией\r\nпо освоению Марса — Марсианским обществом (Mars Society), а также Планетарным\r\nобществом (The Planetary Society). Он не может являться официальным в\r\nюридическом смысле этого слова, так как Договор о космическом пространстве\r\nзапрещает присвоение небесных тел при помощи любых средств.<o:p></o:p></p><p class=\"MsoNormal\" style=\"text-align: center;\"><img src=\"http://localhost:8888/images/facts/mars_flag.jpg\"></p>\r\n\r\n<p class=\"MsoNormal\" style=\"text-align: center;\">В настоящее время флаг Марса развевается над Флэшинской\r\nмарсианской арктической исследовательской станцией на острове Девон, Канада и\r\nна некоторых объектах городка Марсианской Пустынной научно-исследовательской\r\nстанции в штате Юта, США. Флаг также был отправлен в космос — он был доставлен\r\nна орбиту американским астронавтом Джоном Мейсом Грансфелдом во время\r\nкосмического полёта 1999 года на шаттле «Дискавери».<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" style=\"text-align: center;\">Флаг изображает будущую историю Марса: красная полоса\r\nсимволизирует Марс, каким он является сегодня; зелёная и синяя символизируют\r\nэтапы возможного освоения планеты человечеством, если оно будет иметь желание и\r\nвозможности для этого (то есть терраформирование). Цвета флага и их значение\r\nбазируются на известной трилогии Кима Стэнли Робинсона «Красный Марс», «Зелёный\r\nМарс», «Синий Марс». Проект был первоначально предложен инженером NASA Паскалем\r\nЛи.<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">Источник: <a href=\"https://ru.wikipedia.org/wiki/%D0%A4%D0%BB%D0%B0%D0%B3_%D0%9C%D0%B0%D1%80%D1%81%D0%B0\">https://ru.wikipedia.org/wiki/%D0%A4%D0%BB%D0%B0%D0%B3_%D0%9C%D0%B0%D1%80%D1%81%D0%B0</a><o:p></o:p></p></div>');
 /*!40000 ALTER TABLE `facts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,6 +143,33 @@ INSERT INTO `likes` VALUES (44,201,194,193,202,'Фиджи','Австралия'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `rating`
+--
+
+DROP TABLE IF EXISTS `rating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rating` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_fact` int(11) NOT NULL,
+  `id_session` varchar(50) DEFAULT NULL,
+  `is_like` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_fact` (`id_fact`),
+  CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`id_fact`) REFERENCES `facts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=279 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rating`
+--
+
+LOCK TABLES `rating` WRITE;
+/*!40000 ALTER TABLE `rating` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rating` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `records`
 --
 
@@ -168,7 +194,7 @@ CREATE TABLE `records` (
 
 LOCK TABLES `records` WRITE;
 /*!40000 ALTER TABLE `records` DISABLE KEYS */;
-INSERT INTO `records` VALUES (37,'па','апа','Европа',1327,'угадать флаг по стране','сложный'),(48,'1','1','Европа',40,'угадать флаг по стране','сложный'),(49,'2','2','Все',228,'угадать флаг по стране','сложный');
+INSERT INTO `records` VALUES (37,'па','апа','Европа',1327,'угадать флаг по стране','сложный');
 /*!40000 ALTER TABLE `records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,27 +247,6 @@ INSERT INTO `users` VALUES (1,'admin','q');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
-
---
--- Table structure for table `rating`
---
-
-DROP TABLE IF EXISTS `rating`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rating` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_fact` int(11) NOT NULL,
-  `id_session` varchar(50) DEFAULT NULL,
-  `is_like` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-   KEY `id_fact` (`id_fact`),
-  CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`id_fact`) REFERENCES `facts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
 --
 -- Dumping events for database 'fss'
 --
@@ -259,4 +264,4 @@ CREATE TABLE `rating` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-21  2:21:45
+-- Dump completed on 2017-10-08 13:37:13

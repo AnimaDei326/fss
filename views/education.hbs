@@ -1,9 +1,11 @@
 {{> header}}
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/js/search.js"></script>
 <div class="main-table__wrap">
     <div class="main-table__top">
-        <form action="" class="main-table__search search-form">
-            <input placeholder="поиск.." class="search__field">
-            <input type="submit" value="" class="search__btn">
+        <form action="/search" method="POST" class="main-table__search search-form">
+            <input placeholder="поиск.."  name="search" class="search__field">
+            <button type="button" class="search__btn">
         </form>
     </div>
     <table class="main-table">

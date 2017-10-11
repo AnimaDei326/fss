@@ -83,31 +83,67 @@ const Games = {
                 console.log("Error", error);
                 callback(error);
             }else{
-                let {id1, id2, table1, table2, column1, column2, value1, value2, beginningWith, amount} = filtr;
-                // console.log("SELECT *, (SELECT COUNT(" + id2 +
-                //     ") FROM " + table2 +
-                //     " WHERE " + table1 + "." + id1 + " = " +
-                //     id2 +
-                //     " AND " + column2+
-                //     " = " + value2 +
-                //     ") as d, " +
-                //     "(SELECT COUNT(" + id2+
-                //     ") FROM " + table2+
-                //     " WHERE " + table1 + "." + id1 +
-                //     " = " + id2 +
-                //     " AND " + column1 +
-                //     " = " + value1 +
-                //     ") as l FROM " + table1 +
-                //     " LIMIT " + beginningWith +
-                //     ", " + amount
-                //     );
-                connection.query("SELECT id, (SELECT COUNT(??) FROM ?? WHERE ??.?? = ?" +
+                let {id1, id2, table1, table2, column1, column2, column3, value1, value2 ,value3, beginningWith, amount} = filtr;
+                connection.query("SELECT *, (SELECT COUNT(??) FROM ?? WHERE ??.?? = ??" +
                     " AND ?? = ?) as dislike, " +
-                    "(SELECT COUNT(??) FROM ?? WHERE ??.?? = ?" +
-                    " AND ?? = ?) as lik FROM ?? LIMIT ?, ?",
+                    "(SELECT COUNT(??) FROM ?? WHERE ??.?? = ??" +
+                    " AND ?? = ?) as lik, " +
+                    "(SELECT count(??) FROM ?? WHERE ??.?? = ?" +
+                    " AND ??.?? = ??.?? " +
+                    " AND ??.?? = ?) as i_like, " +
+                    "(SELECT count(??) FROM ?? WHERE ??.?? = ?" +
+                    " AND ??.?? = ??.?? " +
+                    " AND ??.?? = ?) as i_dislike " +
+                      "FROM ?? LIMIT ?, ?",
                     [id2, table2, table1, id1, id2, column2, value2, id2, table2, table1, id1,
-                        id2, column1, value1, table1, beginningWith, amount], function(err, result){
-                        console.log(result);
+                        id2, column1, value1, 
+                        column1, table2 , table2, column3, value3, table2, id2, table1, id1, table2, column1, value1, 
+                        column1, table2 , table2, column3, value3, table2, id2, table1, id1, table2, column1, value2, 
+                        table1, beginningWith, amount], function(err, result){
+                    callback(null, result);
+                });
+            }
+            connection.release();
+        });
+    },
+    selectOne: function(filtr, callback){
+        pool.getConnection(function(error, connection){
+            if(error){
+                console.log("Error", error);
+                callback(error);
+            }else{
+                let {id1, id2, table1, table2, column1, column2, column3, value1, value2 ,value3, idfact, limit} = filtr;
+                connection.query("SELECT *, (SELECT COUNT(??) FROM ?? WHERE ??.?? = ??" +
+                    " AND ?? = ?) as dislike, " +
+                    "(SELECT COUNT(??) FROM ?? WHERE ??.?? = ??" +
+                    " AND ?? = ?) as lik, " +
+                    "(SELECT count(??) FROM ?? WHERE ??.?? = ?" +
+                    " AND ??.?? = ??.?? " +
+                    " AND ??.?? = ?) as i_like, " +
+                    "(SELECT count(??) FROM ?? WHERE ??.?? = ?" +
+                    " AND ??.?? = ??.?? " +
+                    " AND ??.?? = ?) as i_dislike " +
+                      "FROM ?? WHERE ??.?? = ? LIMIT ?",
+                    [id2, table2, table1, id1, id2, column2, value2, id2, table2, table1, id1,
+                        id2, column1, value1, 
+                        column1, table2 , table2, column3, value3, table2, id2, table1, id1, table2, column1, value1, 
+                        column1, table2 , table2, column3, value3, table2, id2, table1, id1, table2, column1, value2, 
+                        table1, table1, id1, idfact, limit], function(err, result){
+                    callback(null, result);
+                });
+            }
+            connection.release();
+        });
+    },
+    selectLike: function(filtr, callback){
+        pool.getConnection(function(error, connection){
+            if(error){
+                console.log("Error", error);
+                callback(error);
+            }else{
+                let {table, column1, column2, value} = filtr;
+                connection.query("SELECT * FROM ?? WHERE ?? LIKE ? OR ?? LIKE ?",
+                    [table, column1, value, column2, value], function(err, result){
                     callback(null, result);
                 });
             }

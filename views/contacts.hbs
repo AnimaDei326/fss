@@ -6,9 +6,9 @@
     </ul>
 
     <form action="/contacts" method="POST" class="contact-form">
-        <input name="name" class="contact-form__input" placeholder="Ваше имя" />
-        <input name="email" class="contact-form__input" placeholder="E-mail для обратной связи" />
-        <textarea name="#" class="contact-form__area" placeholder="Ваше сообщение"></textarea>
+        <input required name="name" class="contact-form__input" placeholder="Ваше имя" />
+        <input required name="email" class="contact-form__input" placeholder="E-mail для обратной связи" />
+        <textarea required name="message" class="contact-form__area" placeholder="Ваше сообщение"></textarea>
 
         <input type="submit" value="Отправить" class="contact-form__btn">
     </form>

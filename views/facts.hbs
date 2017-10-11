@@ -1,75 +1,21 @@
 {{> header}}
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        var inProcess = false;
-        var num = 5; //должно совпадать с amount
-
-        $("#next-list").click(function() {
-            if (!inProcess) {
-                $.ajax({
-                    url: '/more?page=' + num,
-                    success: function (data) {
-                        num += data.length;
-                    },
-                    beforeSend: function () {
-                        inProcess = true;
-                    }
-                }).done(function (data) {
-                    if (data.length > 0) {
-                        $.each(data, function (index, data) {
-                            $("#facts").append(
-                                    "<div class=\"news-block__wrap\"><h3 class=\"news-block__title\">{{data.title_preview}}</h3><img src=\"/images/facts/{{data.img_preview}}\" alt=\"image\" class=\"news-block__img\"><p class=\"news-block__text\">{{data.text_preview}}</p><div class=\"news-block__footer\"> <ul class=\"news__soc-info\"><li class=\"soc-info__element\"><span class=\"soc-info__ico ico-likes\">&nbsp;</span>12</li><li class=\"soc-info__element\"><span class=\"soc-info__ico ico-dislikes\">&nbsp;</span>11</li><li class=\"soc-info__element\"><span class=\"soc-info__ico ico-shares\">&nbsp;</span>2</li></ul><a href=\"/fact/{{data.id}}\" class=\"right view__more\">Подробнее</a></div></div>");
-                        });
-
-                        inProcess = false;
-                    }
-                })
-            }
-        });
-        var inProcess2 = false;
-        $(".like").click(function() {
-             if (!inProcess2) {
-                $.ajax({
-                    url: '/like/' + this.getAttribute("data-parameter"),
-                    beforeSend: function () {
-                        inProcess2 = true;
-                    }
-                }).done(function (data) {
-                    inProcess2 = false;
-                })
-            }
-         });
-         var inProcess3 = false;
-                 $(".dislike").click(function() {
-                      if (!inProcess3) {
-                         $.ajax({
-                             url: '/dislike/' + this.getAttribute("data-parameter"),
-                             beforeSend: function () {
-                                 inProcess3 = true;
-                             }
-                         }).done(function (data) {
-                             inProcess3 = false;
-                         })
-                     }
-                  });
-    });
-
-</script>
-    <div class="content__wrap">
+<script type="text/javascript" src="/js/rating.js"></script>
+    <div class="content__wrap" style="width: 80%">
         <div class="news-blocks__wrap" id="facts">
             {{#if rows}}
                 {{#each rows}}
                     <!-- новостной блок -->
-                        <div class="news-block__wrap">
+                        <div class="news-block__wrap" id="{{this.id}}">
                             <h3 class="news-block__title">{{this.title_preview}}</h3>
                             <img src="/images/facts/{{this.img_preview}}" alt="image" class="news-block__img">
                             <p class="news-block__text">{{this.text_preview}}</p>
 
                             <div class="news-block__footer">
                                 <ul class="news__soc-info">
-                                    <li class="soc-info__element like" data-parameter="{{this.id}}"><img src="/images/like.png" />{{this.lik}}</li>
-                                    <li class="soc-info__element dislike" data-parameter="{{this.id}}"><img src="/images/dislike.png" />{{this.dislike}}</li>
+                                    <li class="soc-info__element {{#if this.i_like}}active{{else}}like{{/if}}" data-parameter="{{this.id}}">{{#if this.i_like}}<img src="/images/active_like.png" />{{else}}<img src="/images/like.png" />{{/if}}<label>{{this.lik}}</label></li>
+                                    <li class="soc-info__element {{#if this.i_dislike}}active{{else}}dislike{{/if}}" data-parameter="{{this.id}}">{{#if this.i_dislike}}<img src="/images/active_dislike.png" />{{else}}<img src="/images/dislike.png" />{{/if}}<label>{{this.dislike}}</label></li>
+                                    <li class="soc-info__element_views"><img src="/images/view.png" /><label>{{this.views}}</label></li>
                                 </ul>
                                 <a href="/fact/{{this.id}}" class="right view__more">Подробнее</a>
                             </div>

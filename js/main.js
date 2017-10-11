@@ -120,14 +120,14 @@ function answer_fc(id){
     var imgs = document.body.getElementsByTagName('img');
     var correct = decrypt(x, 2);
     for(var i = 0; i < imgs.length; i++){
-        if(imgs[i].src == 'http://localhost:8888/images/flags/' + correct + '.svg'){
+        if(imgs[i].src.indexOf('/images/flags/' + correct + '.svg') > 0){
             imgs[i].className = 'correct';
         }
     }
     setTimeout(function(){
         let go = '/game/check/' + id;
         document.location.href = go;
-    }, 1000);
+    }, 400);
     
 }
 function answer_cf(id){
@@ -135,13 +135,13 @@ function answer_cf(id){
     var correct = decrypt(x, 2);
     for(var i = 0; i < links.length; i++){
         if(links[i].attributes.onclick.value == 'javascript:answer_cf(\'' + correct + '\')'){
-            links[i].className = 'correct';
+            links[i].className = 'element__game correct';
         }
     }
     setTimeout(function(){
         let go = '/game/check/' + id;
         document.location.href = go;
-    }, 1000);
+    }, 400);
     
 }
 function answer_cf_hard(){
@@ -157,7 +157,7 @@ function answer_cf_hard(){
     setTimeout(function(){
         let go = '/game/check_hard/' + guessText;
         document.location.href = go;
-    }, 1000);
+    }, 400);
 }
 function enter(event){
     if(event.code == 'Enter'){
@@ -226,11 +226,7 @@ function addClassImg(){
     var newsBlock = document.body.getElementsByClassName('news-block__text');
     var imgColl = newsBlock[0].getElementsByTagName('img');
     for(var i=0; i < imgColl.length; i++){
-        if( i%2 == 0){
-            imgColl[i].className = 'news-text__img text-img__left';
-        }else{
-            imgColl[i].className = 'news-text__img text-img__right';
-        }
+        imgColl[i].className = 'news-block__img';
     }
 }
 function Init(){ //инициализация iframe
@@ -249,12 +245,22 @@ function addImg(){
 function addClass(){
     var collimg = iframe_redactor.contentDocument.firstChild.lastChild.getElementsByTagName('img');
     for(var i = 0; i < collimg.length; i++){
-        collimg[i].style.width = '12px';
+        collimg[i].style.width = '16px';
+    }
+}
+function removeClass(){
+   var begin = ""; var end = "";var index = 0;var str = 'width: 16px;';
+    while( text_main.innerHTML.indexOf(str) > 0){
+        index = text_main.innerHTML.indexOf(str);
+        begin = text_main.innerHTML.substring(0, index);
+        end = text_main.innerHTML.substring(index + str.length);
+        text_main.innerHTML = begin + end;
     }
 }
 
 function go(){ //забрать текст в обычную текстарею
-    text_main.innerHTML = iframe_redactor.contentDocument.firstChild.lastChild.innerHTML.replace(/ style="width: 12px;"/g, '');
+    text_main.innerHTML = iframe_redactor.contentDocument.firstChild.lastChild.innerHTML.replace(/ http:\/\/localhost:8888 /g, '');
+    removeClass();
     form.submit();
 }
 function copyTextToFrame(){ //забрать текст в iframe при редактировании
@@ -290,7 +296,6 @@ function select(element, type) {
     }
 }
 
-
 window.onload = function(){
     let path = window.location.pathname;
     if (path == '/game/flag_country' || 
@@ -312,7 +317,7 @@ window.onload = function(){
         path == '/game/country_capital_hard'){
         guess.addEventListener('keyup', enter, false);
     }
-    if(path.indexOf('admin/fact/redact') > 0){
+    if(path.indexOf('admin/fact/redact') > 0 || path.indexOf('admin/add_fact') > 0){
         Init();
     }
 

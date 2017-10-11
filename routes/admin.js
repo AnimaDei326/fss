@@ -63,7 +63,8 @@ module.exports = function(app){
                 text_preview: req.body.text_preview,
                 img_preview: req.body.img_preview,
                 title_main: req.body.title_main,
-                text_main: req.body.text_main
+                text_main: req.body.text_main,
+                views: 0
             }
         };
         if(req.files.foo){
@@ -71,7 +72,7 @@ module.exports = function(app){
             if(typeof(req.files.foo.length) == 'number'){
                 for(var i = 0; i < req.files.foo.length; i++){
                     sampleFile = req.files.foo[i];
-                    path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                    path = 'c:/fss/images/facts/' + sampleFile.name;
                     sampleFile.mv(path, function(err) {
                         if (err)
                         return res.status(500).send(err);
@@ -79,7 +80,7 @@ module.exports = function(app){
                 }
             }else{
                 sampleFile = req.files.foo;
-                path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                path = 'c:/fss/images/facts/' + sampleFile.name;
                 sampleFile.mv(path, function(err) {
                     if (err)
                     return res.status(500).send(err);
@@ -145,7 +146,7 @@ module.exports = function(app){
             if(typeof(req.files.foo.length) == 'number'){
                 for(var i = 0; i < req.files.foo.length; i++){
                     sampleFile = req.files.foo[i];
-                    path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                    path = 'c:/fss/images/facts/' + sampleFile.name;
                     sampleFile.mv(path, function(err) {
                         if (err)
                         return res.status(500).send(err);
@@ -153,7 +154,7 @@ module.exports = function(app){
                 }
             }else{
                 sampleFile = req.files.foo;
-                path = 'c:/xampp/htdocs/images/facts/' + sampleFile.name;
+                path = 'c:/fss/images/facts/' + sampleFile.name;
                 sampleFile.mv(path, function(err) {
                     if (err)
                     return res.status(500).send(err);
