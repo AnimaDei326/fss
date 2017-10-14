@@ -21,22 +21,22 @@ $(document).ready(function() {
                     var li_dislike = '';
                     $.each(data, function (index, data) {
                         if(data.i_like){
-                            img_like = '<img src="/images/active_like.png" />';
+                            img_like = '<img alt="like" src="/images/active_like.png" />';
                             li_like = '<li class="soc-info__element active" data-parameter="'+data.id+'">';
                         }else{
-                            img_like = '<img src="/images/like.png" />';
+                            img_like = '<img alt="like" src="/images/like.png" />';
                             li_like = '<li class="soc-info__element like" data-parameter="'+data.id+'">';
                         }
                         if(data.i_dislike){
-                            img_dislike = '<img src="/images/active_dislike.png" />';
+                            img_dislike = '<img alt="dislike" src="/images/active_dislike.png" />';
                             li_dislike = '<li class="soc-info__element active" data-parameter="'+data.id+'">';
                         }else{
-                            img_dislike = '<img src="/images/dislike.png" />';
+                            img_dislike = '<img alt="dislike" src="/images/dislike.png" />';
                             li_dislike = '<li class="soc-info__element dislike" data-parameter="'+data.id+'">';
                         }
                         $("#facts").append(
-                                '<div class="news-block__wrap"><h3 class="news-block__title">'+data.title_preview+'</h3><img src="/images/facts/'+data.img_preview+'" alt="image" class="news-block__img"><p class="news-block__text">'+data.text_preview+'</p><div class="news-block__footer"><ul class="news__soc-info">'+li_like+img_like
-                                +'<label>'+data.lik+'</label></li>'+li_dislike+img_dislike+'<label>'+data.dislike+'<label></li></ul><a href="/fact/'+data.id+'" class="right view__more">Подробнее</a></div></div>');
+                                '<div class="news-block__wrap" id="id'+data.id+'"><h3 class="news-block__title">'+data.title_preview+'</h3><img alt="img_preview" src="/images/facts/'+data.img_preview+'" class="news-block__img"><p class="news-block__text">'+data.text_preview+'</p><div class="news-block__footer"><ul class="news__soc-info">'+li_like+img_like
+                                +'<span>'+data.lik+'</span></li>'+li_dislike+img_dislike+'<span>'+data.dislike+'<span></li></ul><a href="/fact/'+data.id+'" class="right view__more">Подробнее</a></div></div>');
                         });
                         addEventListenerForRating();
                         inProcess = false;
@@ -57,9 +57,9 @@ $(document).ready(function() {
                     var li = event.currentTarget;
                     var img = event.currentTarget.getElementsByTagName('img');
                     img[0].src = "/images/active_like.png";
-                    var label = event.currentTarget.getElementsByTagName('label');
+                    var span = event.currentTarget.getElementsByTagName('span');
                     li.className = "soc-info__element active";
-                    label[0].innerText++;
+                    span[0].innerText++;
                     var clone = li.cloneNode();
                     while (li.firstChild) {
                         clone.appendChild(li.firstChild);
@@ -84,9 +84,9 @@ $(document).ready(function() {
                     var li = event.currentTarget;
                     var img = li.getElementsByTagName('img');
                     img[0].src = "/images/active_dislike.png";
-                    var label = li.getElementsByTagName('label');
+                    var span = li.getElementsByTagName('span');
                     li.className = "soc-info__element active";
-                    label[0].innerText++;
+                    span[0].innerText++;
                     var clone = li.cloneNode();
                     while (li.firstChild) {
                         clone.appendChild(li.firstChild);
@@ -110,8 +110,8 @@ $(document).ready(function() {
                 if(data){
                     var li = event.currentTarget;
                     var img = li.getElementsByTagName('img');
-                    var label = li.getElementsByTagName('label');
-                    label[0].innerText--;
+                    var span = li.getElementsByTagName('span');
+                    span[0].innerText--;
                     
                     if( img[0].src.indexOf("dislike") > 0 ){
                         img[0].src = "/images/dislike.png";

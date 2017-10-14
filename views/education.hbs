@@ -1,19 +1,18 @@
 {{> header}}
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/js/search.js"></script>
 <div class="main-table__wrap">
     <div class="main-table__top">
         <form action="/search" method="POST" class="main-table__search search-form">
             <input placeholder="поиск.."  name="search" class="search__field">
-            <button type="button" class="search__btn">
+            <button type="submit" class="search__btn"></button>
         </form>
     </div>
     <table class="main-table">
         <thead class="main-table__header">
             <tr class="main__line">
-                <td class="main-table__row">Флаг</td>
-                <td class="main-table__row">Страна</td>
-                <td class="main-table__row">Столица</td>
+                <td class="main-table__row"><strong>Флаг</strong></td>
+                <td class="main-table__row"><strong>Страна</strong></td>
+                <td class="main-table__row"><strong>Столица</strong></td>
             </tr>
         </thead>
         <tbody class="main-table__body">

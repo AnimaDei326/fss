@@ -21,10 +21,9 @@
   /* стили бокового меню */
   .burger__btn { left: 15px; }
   .burger-menu__wrap { left: 15px; }
-
-  .game-menu__element a {
-    height: 125px;
-  }
+    .game-menu__element a {
+        height: 125px;
+    }
 }
 
 

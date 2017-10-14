@@ -1,12 +1,12 @@
 {{> header}}
 <div class="content__wrap">
-    <h4 id="{{x}}" class="block__title">{{capital}}</h4>
+    <h4 id="{{x}}" class="block__title"><strong>{{capital}}</strong></h4>
 
     <div class="game-menu__wrap">
         <ul class="game-menu" id="start">
             {{#each rows}}
                 <li class="game-menu__element">
-                    <a onclick="javascript:answer_cf('{{this.id}}')"  class="element__game" ><span>{{this.country}}</span></a>
+                    <a onclick="javascript:answer_cf('{{this.id}}')"  class="element__game" ><span><strong>{{this.country}}</strong></span></a>
                 </li>
             {{/each}}
         </ul>
