@@ -551,7 +551,7 @@ module.exports = function(app){
             response.redirect('/game');
             return;
         }
-        if(arrUser[request.session.id].len == 0){
+        if(!arrUser[request.session.id].gameOver){
             response.redirect('/liaders');
             return;
         }
