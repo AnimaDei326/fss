@@ -21,6 +21,10 @@
   /* стили бокового меню */
   .burger__btn { left: 15px; }
   .burger-menu__wrap { left: 15px; }
+
+  .game-menu__element a {
+    height: 125px;
+  }
 }
 
 
@@ -53,7 +57,7 @@
 
   .game-menu__element a {
     font-size: 15px;
-    padding: 45px 0;
+    height: 110px;
   }
 
   /* страница конца игры */
@@ -119,7 +123,7 @@
 
   .game-menu__element a {
     font-size: 13px;
-    padding: 35px 0;
+    height:  90px;
   }
 
 
