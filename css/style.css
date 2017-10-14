@@ -681,7 +681,7 @@ input:focus, select:focus, button:focus{
 /*contact form*/
 .contact-info {
   display: block;
-  margin-bottom: 25px;
+  margin-top: 55px;
   /*width: 100%;*/
   /*margin: 0 auto;*/
   text-align: center;
