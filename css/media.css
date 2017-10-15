@@ -25,6 +25,8 @@
   .game-menu__element a {
     height: 125px;
   }
+
+  .flags-list__element { height: 120px; }
 }
 
 
@@ -80,6 +82,8 @@
   /* страница настроек */
   .settings-form__title { font-size: 13px; }
   .select__wrap { font-size: 13px; }
+
+  .flags-list__element { height: 100px; }
 }
 
 
@@ -167,6 +171,8 @@
 
   /* страница победы */
   .win-message__input { width: 100%; }
+
+  .flags-list__element { height: 80px; }
 }
 
 
@@ -187,4 +193,6 @@
   .main-table { font-size: 10px; }
   .table__tr-title { font-size: 17px; }
   .main-table__img { width: 80px; }
+
+  .flags-list__element { height: 55px; }
 }
