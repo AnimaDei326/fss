@@ -1,22 +1,19 @@
 {{> header}}
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="/js/rating.js"></script>
     {{#if rows}}
-        
-        <div class="content__wrap" style="width: 80%">
+        <div class="content__wrap" style="width: 70%">
             {{#each rows}}
-            <a href="/facts#{{this.id}}"><img class="back_btn_facts" src="/images/back.png" /></a>
-                <h3 class="news-block__title">{{this.title_main}}</h3>
+            <a href="/facts#id{{this.id}}"><img class="back_btn_facts" src="/images/back.png" alt="back"/></a>
+                <h3 class="news-block__title"><strong>{{this.title_main}}</strong></h3>
                 <!-- новостной блок -->
                 <div class="news-block__wrap">
-                    <img src="/images/facts/{{this.img_preview}}" alt="image" class="news-block__img">
+                    <img src="/images/facts/{{this.img_preview}}" alt="image_preview" class="news-block__img">
                     <p class="news-block__text">{{this.text_main}}</p>
 
                     <div class="news-block__footer">
                         <ul class="news__soc-info">
-                            <li class="soc-info__element {{#if this.i_like}}active{{else}}like{{/if}}" data-parameter="{{this.id}}">{{#if this.i_like}}<img src="/images/active_like.png" />{{else}}<img src="/images/like.png" />{{/if}}<label>{{this.lik}}</label></li>
-                            <li class="soc-info__element {{#if this.i_dislike}}active{{else}}dislike{{/if}}" data-parameter="{{this.id}}">{{#if this.i_dislike}}<img src="/images/active_dislike.png" />{{else}}<img src="/images/dislike.png" />{{/if}}<label>{{this.dislike}}</label></li>
-                            <li class="soc-info__element_views"><img src="/images/view.png" /><label>{{this.views}}</label></li>
+                            <li class="soc-info__element {{#if this.i_like}}active{{else}}like{{/if}}" data-parameter="{{this.id}}">{{#if this.i_like}}<img alt="like" src="/images/active_like.png" />{{else}}<img alt="like" src="/images/like.png" />{{/if}}<span>{{this.lik}}</span></li>
+                            <li class="soc-info__element {{#if this.i_dislike}}active{{else}}dislike{{/if}}" data-parameter="{{this.id}}">{{#if this.i_dislike}}<img alt="dislike" src="/images/active_dislike.png" />{{else}}<img alt="dislike" src="/images/dislike.png" />{{/if}}<span>{{this.dislike}}</span></li>
+                            <li class="soc-info__element_views"><img alt="views" src="/images/view.png" /><span>{{this.views}}</span></li>
                         </ul>
                     </div>
                 </div> <!-- //новостной блок -->
@@ -27,7 +24,7 @@
                         <h4 class="comment__title">Оставить комментарий</h4>
                         <form action="/comment/{{this.id}}" method="POST" class="write-comment__form">
                             <input required placeholder="Ваше имя" class="comment__name" name="author">
-                            <textarea required name="text" id="" cols="30" rows="10" placeholder="Текст комментария" class="comment__area"></textarea>
+                            <textarea required name="text" cols="30" rows="10" placeholder="Текст комментария" class="comment__area"></textarea>
                             <input type="submit" value="Отправить" class="comment__btn btn">
                         </form>
                         <span class="comments__separate-line">&nbsp;</span>

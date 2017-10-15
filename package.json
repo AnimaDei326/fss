@@ -34,9 +34,5 @@
   "bugs": {
     "url": "https://github.com/AnimaDei326/fss/issues"
   },
-  "homepage": "https://github.com/AnimaDei326/fss#readme",
-  "devDependencies": {
-    "nodemailer": "^4.2.0",
-    "release": "^2.5.2"
-  }
+  "homepage": "https://github.com/AnimaDei326/fss#readme"
 }

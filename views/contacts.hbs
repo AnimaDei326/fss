@@ -1,16 +1,14 @@
 {{> header}}
 <div class="content__wrap">
-    <ul class="contact-info">
+    <form action="/contacts" method="POST" class="contact-form">
+        <input required name="username" class="contact-form__input" placeholder="Ваше имя" />
+        <input required name="email" class="contact-form__input" placeholder="E-mail для обратной связи" />
+        <textarea required name="message" class="contact-form__area" placeholder="Ваше сообщение"></textarea>
+        <input type="submit" value="Отправить" class="contact-form__btn">
+    </form>
+     <ul class="contact-info">
         <li class="contact-info__element info__element-front">Front-end by <b>Patison5</b></li>
         <li class="contact-info__element info__element-back" >Back-end by <b>Anima Dei</b></li>
     </ul>
-
-    <form action="/contacts" method="POST" class="contact-form">
-        <input required name="name" class="contact-form__input" placeholder="Ваше имя" />
-        <input required name="email" class="contact-form__input" placeholder="E-mail для обратной связи" />
-        <textarea required name="message" class="contact-form__area" placeholder="Ваше сообщение"></textarea>
-
-        <input type="submit" value="Отправить" class="contact-form__btn">
-    </form>
 </div>
 {{> footer}}

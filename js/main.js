@@ -1,14 +1,15 @@
 window.onload = function(){
     let path = window.location.pathname;
-    if (path == '/game/flag_country' ||
-        path == '/game/country_flag' ||
-        path == '/game/country_capital' ||
+    if (path == '/game/flag_country' || 
+        path == '/game/country_flag' || 
+        path == '/game/country_capital' || 
         path == '/game/capital_country' ||
         path == '/game/flag_country_hard' ||
         path == '/game/country_flag_hard'||
         path == '/game/capital_country_hard' ||
         path == '/game/country_capital_hard'
         ){
+        centerBlocks();
         h = document.body.getElementsByTagName('h4');
         x = h[0].id;
 
@@ -67,28 +68,19 @@ window.onload = function(){
         selectView[i].addEventListener('click', toggleSelectElements.bind(null, i))
     }
 
-
-    // центруем текст в блоках по центру (по высоте)
-    function centerBlocks () {
-      let blockWrap = document.getElementsByClassName('element__game');
-
-      for (var i = 0; i < blockWrap.length; i++) {
-        let blockHeight = window.getComputedStyle(blockWrap[i], null).height;
-            childrenHeight = window.getComputedStyle(blockWrap[i].children[0], null).height;
-
-        blockWrap[i].children[0].style.marginTop = (parseInt(blockHeight) - parseInt(childrenHeight)) / 2 + 'px';
-      }
-
-    }
-    centerBlocks();
 }
-
-
-
-
-
-
 var x = "";
+function centerBlocks () {
+    let blockWrap = document.getElementsByClassName('element__game');
+
+    for (var i = 0; i < blockWrap.length; i++) {
+     let blockHeight = window.getComputedStyle(blockWrap[i], null).height;
+         childrenHeight = window.getComputedStyle(blockWrap[i].children[0], null).height;
+
+      blockWrap[i].children[0].style.marginTop = (parseInt(blockHeight) - parseInt(childrenHeight)) / 2 + 'px';
+    }
+
+ }
 function answer_fc(id){
     var imgs = document.body.getElementsByTagName('img');
     var correct = decrypt(x, 2);
@@ -101,7 +93,7 @@ function answer_fc(id){
         let go = '/game/check/' + id;
         document.location.href = go;
     }, 400);
-
+    
 }
 function answer_cf(id){
     var links = start.getElementsByTagName('a');
@@ -115,7 +107,7 @@ function answer_cf(id){
         let go = '/game/check/' + id;
         document.location.href = go;
     }, 400);
-
+    
 }
 function answer_cf_hard(){
     let guessText = 'пусто';
@@ -140,9 +132,10 @@ function enter(event){
 function decrypt(input, ind){
     var output = "";
     var code = "";
-    for (var i = 0; i < input.length/ind; i++){
-        if(input[i*ind] != '-'){
-            code = input.substring(i*ind, i*ind+ind);
+    var str = input.substr(2);
+    for (var i = 0; i < str.length/ind; i++){
+        if(str[i*ind] != '-'){
+            code = str.substring(i*ind, i*ind+ind);
             output += String.fromCharCode(code);
         }else{
             output+= '-';

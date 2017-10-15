@@ -52,7 +52,7 @@ module.exports = function(app){
                 randomElements(res, request);
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
+                var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('flag_country', {
                 title: 'Игра',
                 h1: 'Угадай флаг',
@@ -101,7 +101,7 @@ module.exports = function(app){
                             3: {id: r.id_4}
                         };
                         sortArr = arrSort(sortArr, 4);
-                        var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
+                        var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.id.toString());
                         let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                         let s = arrUser[request.session.id].arrWait.length;
                         response.render('flag_country_hard', {
@@ -146,7 +146,7 @@ module.exports = function(app){
                 randomElements(res, request);
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
+                var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('country_flag', {
                 title: 'Игра',
                 h1: 'Угадай страну',
@@ -184,7 +184,7 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.country);
+                var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.country);
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('country_flag_hard', {
@@ -225,7 +225,7 @@ module.exports = function(app){
                 randomElements(res, request);
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
+                var xCrypt = 'id' +crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('capital_country', {
                 title: 'Игра',
                 h1: 'Угадай столицу',
@@ -263,7 +263,7 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.capital);
+                var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.capital);
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('capital_country_hard', {
@@ -302,7 +302,7 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.id.toString());
+                var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('country_capital', {
@@ -342,7 +342,7 @@ module.exports = function(app){
                 console.log(err);
             }else{
                 randomElements(res, request);
-                var xCrypt = crypt(arrUser[request.session.id].arrCorrect.country);
+                var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.country);
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('country_capital_hard', {

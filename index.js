@@ -350,7 +350,7 @@ app.get('/contacts', function(req, response, next){
 
 app.post('/contacts', function(req, response, next){
 
-    var name = req.body.name;
+    var name = req.body.username;
     var email = req.body.email;
     var message = req.body.message;
     var mailOptions = {
