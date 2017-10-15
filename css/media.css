@@ -25,7 +25,8 @@
     height: 125px;
   }
 
-  .flags-list__element { height: 120px; }
+  /*.flags-list__element { height: 120px; }*/
+  /*.flags-list__element  img { height: 120px; }*/
 }
 
 
@@ -83,6 +84,7 @@
   .select__wrap { font-size: 13px; }
 
   .flags-list__element { height: 100px; }
+  .flags-list__element img { height: 100px; }
 }
 
 
@@ -172,6 +174,7 @@
   .win-message__input { width: 100%; }
 
   .flags-list__element { height: 80px; }
+  .flags-list__element  img {height: 80px; }
 }
 
 
