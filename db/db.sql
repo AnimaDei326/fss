@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Окт 16 2017 г., 22:27
+-- Время создания: Окт 17 2017 г., 00:51
 -- Версия сервера: 5.7.18-16-beget-5.7.18-16-2-1-log
 -- Версия PHP: 5.6.30
 
@@ -19,6 +19,23 @@ SET time_zone = "+00:00";
 --
 -- База данных: `animadqu_test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `arruser`
+--
+-- Создание: Окт 16 2017 г., 21:47
+--
+
+DROP TABLE IF EXISTS `arruser`;
+CREATE TABLE `arruser` (
+  `id` int(11) NOT NULL,
+  `id_session` varchar(50) DEFAULT NULL,
+  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `count` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -468,6 +485,12 @@ INSERT INTO `users` (`id_user`, `name`, `password`) VALUES
 --
 
 --
+-- Индексы таблицы `arruser`
+--
+ALTER TABLE `arruser`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `comments`
 --
 ALTER TABLE `comments`
@@ -526,6 +549,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
+--
+-- AUTO_INCREMENT для таблицы `arruser`
+--
+ALTER TABLE `arruser`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT для таблицы `comments`
 --
