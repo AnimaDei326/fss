@@ -222,7 +222,7 @@ app.get('/delete_rating/:id', function(req, response, next){
 });
 
 //Обучение
-app.get('/education', function(req, result, next){
+app.get('/education', function(req, response, next){
     let filtr = {
         table: 'countries',
         order: 'country'
@@ -249,7 +249,7 @@ app.get('/education', function(req, result, next){
                     au.push(res[i]);
                 }
             }
-            result.render('education',{
+            response.render('education',{
                 title: 'Обучение',
                 h1: 'Обучение',
                 europe: eu,
@@ -265,6 +265,57 @@ app.get('/education', function(req, result, next){
         }
     })
 });
+app.post('/education', function(req, response, next){
+    if(! (req.body.search) ){
+        response.redirect('/education');
+    }else{
+        var search = req.body.search;
+        var filtr = {
+            table: 'countries',
+            column1: 'country',
+            column2: 'capital',
+            value: '%' + search  + '%',
+        };
+        Games.selectLike(filtr, function(err, res){
+            if(err){
+                console.log(err);
+            }else{
+                var eu = [];
+                var az = [];
+                var af = [];
+                var am = [];
+                var au = [];
+                for(var i = 0; i < res.length; i++){
+                    if(res[i].id_region == 2){
+                        eu.push(res[i]);
+                    }else if(res[i].id_region == 4){
+                        az.push(res[i]);
+                    }else if(res[i].id_region == 5){
+                        af.push(res[i]);
+                    }else if(res[i].id_region == 6){
+                        am.push(res[i]);
+                    }else if(res[i].id_region == 7){
+                        au.push(res[i]);
+                    }
+                }
+                response.render('education',{
+                    title: 'Обучение',
+                    h1: 'Обучение',
+                    search: search,
+                    europe: eu,
+                    azia: az,
+                    africa: af,
+                    america: am,
+                    australia: au,
+                    partials: {
+                        header: 'partials/header',
+                        footer: 'partials/footer'
+                    }
+                });
+            }
+        });
+    }
+});
 //Поиск
 app.post('/search', function(req, response, next){
     var filtr = {
@@ -277,7 +328,32 @@ app.post('/search', function(req, response, next){
         if(err){
             console.log(err);
         }else{
-            response.send(res);
+            var eu = [];
+            var az = [];
+            var af = [];
+            var am = [];
+            var au = [];
+            for(var i = 0; i < res.length; i++){
+                if(res[i].id_region == 2){
+                    eu.push(res[i]);
+                }else if(res[i].id_region == 4){
+                    az.push(res[i]);
+                }else if(res[i].id_region == 5){
+                    af.push(res[i]);
+                }else if(res[i].id_region == 6){
+                    am.push(res[i]);
+                }else if(res[i].id_region == 7){
+                    au.push(res[i]);
+                }
+            }
+            var result = {
+                'europe' : eu,
+                'azia' : az,
+                'africa' : af,
+                'america' : am,
+                'australia' : au
+            };
+            response.send(result);
         }
     });
 });

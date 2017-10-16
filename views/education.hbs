@@ -2,9 +2,9 @@
 <script src="/js/search.js"></script>
 <div class="main-table__wrap">
     <div class="main-table__top">
-        <form action="/search" method="POST" class="main-table__search search-form">
-            <input placeholder="поиск.."  name="search" class="search__field">
-            <button type="button" class="search__btn"></button>
+        <form action="/education" method="POST" class="main-table__search search-form">
+            <input placeholder="поиск.." {{#if search}} value={{search}} {{/if}} name="search" class="search__field">
+            <button type="submit" class="search__btn"></button>
         </form>
     </div>
     <table class="main-table">
@@ -18,66 +18,76 @@
         <tbody class="main-table__body">
         <!-- блок 1 -->
         <!-- заголовок -->
-            <tr class="main-table__line table__tr-title">
-                <td class="main-table__row" colspan="3">Европа</td>
-            </tr>
-            {{#each europe}}
-                <tr class="main-table__line">
-                    <td class="main-table__row">
-                        <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
-                    </td>
-                    <td class="main-table__row">{{this.country}}</td>
-                    <td class="main-table__row">{{this.capital}}</td>
+            {{#if europe}}
+                <tr class="main-table__line table__tr-title">
+                    <td class="main-table__row" colspan="3">Европа</td>
                 </tr>
-            {{/each}}
-            <tr class="main-table__line table__tr-title">
-                <td class="main-table__row" colspan="3">Азия</td>
-            </tr>
-            {{#each azia}}
-                <tr class="main-table__line">
-                    <td class="main-table__row">
-                        <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
-                    </td>
-                    <td class="main-table__row">{{this.country}}</td>
-                    <td class="main-table__row">{{this.capital}}</td>
+                {{#each europe}}
+                    <tr class="main-table__line">
+                        <td class="main-table__row">
+                            <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
+                        </td>
+                        <td class="main-table__row">{{this.country}}</td>
+                        <td class="main-table__row">{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+            {{/if}}
+             {{#if azia}}
+                <tr class="main-table__line table__tr-title">
+                    <td class="main-table__row" colspan="3">Азия</td>
                 </tr>
-            {{/each}}
-            <tr class="main-table__line table__tr-title">
-                <td class="main-table__row" colspan="3">Африка</td>
-            </tr>
-            {{#each africa}}
-                <tr class="main-table__line">
-                    <td class="main-table__row">
-                        <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
-                    </td>
-                    <td class="main-table__row">{{this.country}}</td>
-                    <td class="main-table__row">{{this.capital}}</td>
+                {{#each azia}}
+                    <tr class="main-table__line">
+                        <td class="main-table__row">
+                            <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
+                        </td>
+                        <td class="main-table__row">{{this.country}}</td>
+                        <td class="main-table__row">{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+             {{/if}}
+             {{#if africa}}
+                <tr class="main-table__line table__tr-title">
+                    <td class="main-table__row" colspan="3">Африка</td>
                 </tr>
-            {{/each}}
-            <tr class="main-table__line table__tr-title">
-                <td class="main-table__row" colspan="3">Америка</td>
-            </tr>
-            {{#each america}}
-                <tr class="main-table__line">
-                    <td class="main-table__row">
-                        <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
-                    </td>
-                    <td class="main-table__row">{{this.country}}</td>
-                    <td class="main-table__row">{{this.capital}}</td>
+                {{#each africa}}
+                    <tr class="main-table__line">
+                        <td class="main-table__row">
+                            <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
+                        </td>
+                        <td class="main-table__row">{{this.country}}</td>
+                        <td class="main-table__row">{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+             {{/if}}
+             {{#if america}}
+                <tr class="main-table__line table__tr-title">
+                    <td class="main-table__row" colspan="3">Америка</td>
                 </tr>
-            {{/each}}
-            <tr class="main-table__line table__tr-title">
-                <td class="main-table__row" colspan="3">Австралия и Океания</td>
-            </tr>
-            {{#each australia}}
-                <tr class="main-table__line">
-                    <td class="main-table__row">
-                        <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
-                    </td>
-                    <td class="main-table__row">{{this.country}}</td>
-                    <td class="main-table__row">{{this.capital}}</td>
+                {{#each america}}
+                    <tr class="main-table__line">
+                        <td class="main-table__row">
+                            <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
+                        </td>
+                        <td class="main-table__row">{{this.country}}</td>
+                        <td class="main-table__row">{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+             {{/if}}
+             {{#if australia}}
+                <tr class="main-table__line table__tr-title">
+                    <td class="main-table__row" colspan="3">Австралия и Океания</td>
                 </tr>
-            {{/each}}
+                {{#each australia}}
+                    <tr class="main-table__line">
+                        <td class="main-table__row">
+                            <img src="/images/flags/{{this.id}}.svg" alt="картинка" class="main-table__img" />
+                        </td>
+                        <td class="main-table__row">{{this.country}}</td>
+                        <td class="main-table__row">{{this.capital}}</td>
+                    </tr>
+                {{/each}}
+             {{/if}}
         </tbody>
     </table>
 </div>

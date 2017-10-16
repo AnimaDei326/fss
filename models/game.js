@@ -142,8 +142,8 @@ const Games = {
                 callback(error);
             }else{
                 let {table, column1, column2, value} = filtr;
-                connection.query("SELECT * FROM ?? WHERE ?? LIKE ? OR ?? LIKE ?",
-                    [table, column1, value, column2, value], function(err, result){
+                connection.query("SELECT * FROM ?? WHERE ?? LIKE ? OR ?? LIKE ? ORDER BY ??",
+                    [table, column1, value, column2, value, column1], function(err, result){
                     callback(null, result);
                 });
             }
