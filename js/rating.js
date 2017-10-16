@@ -36,7 +36,7 @@ $(document).ready(function() {
                         }
                         $("#facts").append(
                                 '<div class="news-block__wrap" id="id'+data.id+'"><h3 class="news-block__title">'+data.title_preview+'</h3><img alt="img_preview" src="/images/facts/'+data.img_preview+'" class="news-block__img"><p class="news-block__text">'+data.text_preview+'</p><div class="news-block__footer"><ul class="news__soc-info">'+li_like+img_like
-                                +'<span>'+data.lik+'</span></li>'+li_dislike+img_dislike+'<span>'+data.dislike+'<span></li></ul><a href="/fact/'+data.id+'" class="right view__more">Подробнее</a></div></div>');
+                                +'<span>'+data.lik+'</span></li>'+li_dislike+img_dislike+'<span>'+data.dislike+'<span></li><li class="soc-info__element_views"><img alt="views" src="/images/view.png" /><span>'+data.views+'</span></li></ul><a href="/fact/'+data.id+'" class="right view__more">Подробнее</a></div></div>');
                         });
                         addEventListenerForRating();
                         inProcess = false;
