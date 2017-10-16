@@ -3,6 +3,7 @@ const F = require('./../models/functions');
 const uuid = require('./../node_modules/uuid-v4');
 
 let arrUser = [];
+setInterval(deleteOld, 1000 * 60 * 60 * 24);
 
 module.exports = function(app){
 
@@ -685,4 +686,96 @@ module.exports = function(app){
         arrUser[req.session.id].countLoses = 0;
         arrUser[req.session.id].rand = 0;
         arrUser[req.session.id].gameOver = false;
+        setStatistic(req.session.id);
+    }
+    function setStatistic(id_session){
+        var filtr = {
+            table: 'arruser',
+            column1: 'id_session',
+            value1: id_session,
+            column2: 'deleted',
+            value2: false,
+        };
+        Games.select(filtr, function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                if(result){
+                    var count = result.count * 1 + 1;
+                    var date = new Date();
+                    var filtr2 = {
+                        table: 'arruser',
+                        set: {
+                            'count': count,
+                            'time_created': date
+                        },
+                        column: 'id_session',
+                        value: id_session
+                    };
+                    Games.update(filtr2, function(err, res){
+                        if(err){
+                            console.log(err);
+                        }else{
+                            return true;
+                        }
+                    });
+                }else{
+                    var filtr3 = {
+                        table: 'arruser',
+                        set:{
+                            'id_session' : id_session,
+                            'count': 1
+                        }
+                    };
+                    Games.insert(filtr3, function(err, res){
+                        if(err){
+                            console.log(err);
+                        }else{
+                            return true;
+                        }
+                    });
+                }
+            }
+        }); 
+    }
+    function deleteOld(){
+        var date = new Date();
+        var old = getDateAgo(date, 2);
+        var filtr = {
+            table: 'arruser',
+            column1: 'time_created',
+            value1: old,
+            column2: 'deleted',
+            value2: false
+        };
+        Games.selectOld(filtr, function(err, res){
+            if(err){
+                console.log(err);
+            }else{
+                if(res.length > 0){
+                    var filtr2 = {
+                        table: 'arruser',
+                        set:{
+                            deleted: true
+                        },
+                        column: 'id',
+                        value: ''
+                    };
+                    for(var i = 0; i < res.length; i++){
+                        delete(arrUser[res[i].id_session]);
+                        filtr2.value = res[i].id;
+                        Games.update(filtr2, function(err, res){
+                            if(err){
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+            }
+        })
+    }
+    function getDateAgo(date, days) {
+        var dateCopy = new Date(date);
+        dateCopy.setDate(date.getDate() - days);
+        return dateCopy;
     }
