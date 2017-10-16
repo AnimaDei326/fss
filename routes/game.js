@@ -54,10 +54,9 @@ module.exports = function(app){
                 let s = arrUser[request.session.id].arrWait.length;
                 var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('flag_country', {
-                title: 'Игра',
-                h1: 'Угадай флаг',
+                title: 'Угадай флаг',
                 rows: arrUser[request.session.id].arrRandom,
-                country: arrUser[request.session.id].arrCorrect.country,
+                h1: arrUser[request.session.id].arrCorrect.country,
                 x: xCrypt,
                 current : c,
                 size:  s,
@@ -105,10 +104,9 @@ module.exports = function(app){
                         let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                         let s = arrUser[request.session.id].arrWait.length;
                         response.render('flag_country_hard', {
-                            title: 'Игра',
-                            h1: 'Угадай флаг',
+                            title: 'Угадай флаг',
                             rows: sortArr,
-                            country: arrUser[request.session.id].arrCorrect.country,
+                            h1: arrUser[request.session.id].arrCorrect.country,
                             x: xCrypt,
                             current : c,
                             size:  s,
@@ -148,8 +146,7 @@ module.exports = function(app){
                 let s = arrUser[request.session.id].arrWait.length;
                 var xCrypt = 'id' + crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('country_flag', {
-                title: 'Игра',
-                h1: 'Угадай страну',
+                title: 'Угадай страну',
                 rows: arrUser[request.session.id].arrRandom,
                 imgSrc : arrUser[request.session.id].arrCorrect.id,
                 x: xCrypt,
@@ -188,8 +185,7 @@ module.exports = function(app){
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('country_flag_hard', {
-                title: 'Игра',
-                h1: 'Угадай страну',
+                title: 'Угадай страну',
                 imgSrc : arrUser[request.session.id].arrCorrect.id,
                 x: xCrypt,
                 current : c,
@@ -227,10 +223,9 @@ module.exports = function(app){
                 let s = arrUser[request.session.id].arrWait.length;
                 var xCrypt = 'id' +crypt(arrUser[request.session.id].arrCorrect.id.toString());
                 response.render('capital_country', {
-                title: 'Игра',
-                h1: 'Угадай столицу',
+                title: 'Угадай столицу',
                 rows: arrUser[request.session.id].arrRandom,
-                country: arrUser[request.session.id].arrCorrect.country,
+                h1: arrUser[request.session.id].arrCorrect.country,
                 x: xCrypt,
                 current : c,
                 size:  s,
@@ -267,9 +262,8 @@ module.exports = function(app){
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('capital_country_hard', {
-                    title: 'Игра',
-                    h1: 'Угадай столицу',
-                    country: arrUser[request.session.id].arrCorrect.country,
+                    title: 'Угадай столицу',
+                    h1: arrUser[request.session.id].arrCorrect.country,
                     x: xCrypt,
                     current : c,
                     size:  s,
@@ -306,10 +300,9 @@ module.exports = function(app){
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('country_capital', {
-                title: 'Игра',
-                h1: 'Угадай страну',
+                title: 'Угадай страну',
                 rows: arrUser[request.session.id].arrRandom,
-                capital: arrUser[request.session.id].arrCorrect.capital,
+                h1: arrUser[request.session.id].arrCorrect.capital,
                 x: xCrypt,
                 current : c,
                 size:  s,
@@ -346,9 +339,8 @@ module.exports = function(app){
                 let c = arrUser[request.session.id].arrWait.length - arrUser[request.session.id].len;
                 let s = arrUser[request.session.id].arrWait.length;
                 response.render('country_capital_hard', {
-                title: 'Игра',
-                h1: 'Угадай страну',
-                capital: arrUser[request.session.id].arrCorrect.capital,
+                title: 'Угадай страну',
+                h1: arrUser[request.session.id].arrCorrect.capital,
                 x: xCrypt,
                 current : c,
                 size:  s,

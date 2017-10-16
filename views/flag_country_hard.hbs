@@ -1,7 +1,13 @@
 {{> header}}
 <div class="content__wrap">
-    <h4 id="{{x}}" class="block__title"><strong>{{country}}</strong></h4>
-
+     <!-- Линия прогресса -->
+    <div class="progress-line__wrap">
+        <span class="progress-line__count">{{current}} / {{size}}</span>
+        <span class="progress-line">
+            <span class="progress-line__element" style="width: {{progress}}%;">&nbsp;</span>
+        </span>
+    </div>
+    <!-- //Линия прогресса -->
     <ul class="country-flags__list">
         {{#each rows}}
             <li class="flags-list__element">
@@ -11,17 +17,7 @@
             </li>
         {{/each}}
     </ul>
-
-    <!-- Линия прогресса -->
-    <div class="progress-line__wrap">
-        <span class="progress-line__count">{{current}} / {{size}}</span>
-        <span class="progress-line">
-            <span class="progress-line__element" style="width: {{progress}}%;">&nbsp;</span>
-        </span>
-        <a href="/gameover" class="end_btn">сдаться</a>
-    </div>
-    <!-- //Линия прогресса -->
-
+     <a href="/gameover" class="end_btn">сдаться</a>
 </div>
 {{> footer}}
 

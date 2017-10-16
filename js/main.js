@@ -10,10 +10,10 @@ window.onload = function(){
         path == '/game/country_capital_hard'
         ){
         centerBlocks();
-        h = document.body.getElementsByTagName('h4');
+        h = document.body.getElementsByTagName('h1');
         x = h[0].id;
 
-        h[0].id = "h4";
+        h[0].id = "h1";
     }
     if( path == '/game/country_flag_hard' ||
         path == '/game/capital_country_hard' ||

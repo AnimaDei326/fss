@@ -1,10 +1,16 @@
 {{> header}}
 <div class="content__wrap">
-    <h4 id="{{x}}" class="block__title"></h4>
+    <!-- Линия прогресса -->
+    <div class="progress-line__wrap">
+        <span class="progress-line__count">{{current}} / {{size}}</span>
+        <span class="progress-line">
+            <span class="progress-line__element" style="width: {{progress}}%;">&nbsp;</span>
+        </span>
+    </div>
+    <!-- //Линия прогресса -->
     <div class="block__image">
         <img src="/images/flags/{{imgSrc}}.svg" />
     </div>
-
     <div class="game-menu__wrap">
         <ul class="game-menu" id="start">
             {{#each rows}}
@@ -13,17 +19,7 @@
                 </li>
             {{/each}}
         </ul>
-    </div>
-
-    <!-- Линия прогресса -->
-    <div class="progress-line__wrap">
-        <span class="progress-line__count">{{current}} / {{size}}</span>
-        <span class="progress-line">
-                <span class="progress-line__element" style="width: {{progress}}%;">&nbsp;</span>
-            </span>
         <a href="/gameover" class="end_btn">сдаться</a>
     </div>
-    <!-- //Линия прогресса -->
-
 </div>
 {{> footer}}

@@ -1,22 +1,18 @@
 {{> header}}
 <div class="content__wrap">
-    <h4 id="{{x}}" class="block__title"><strong>{{capital}}</strong></h4>
-
-    <div class="content__wrap" id="start">
-        <input id="guess" class="my" autofocus/>
-        <a href="javascript:answer_cf_hard()" class="check">проверить (enter)</a>
-    </div>
-
     <!-- Линия прогресса -->
     <div class="progress-line__wrap">
         <span class="progress-line__count">{{current}} / {{size}}</span>
         <span class="progress-line">
             <span class="progress-line__element" style="width: {{progress}}%;">&nbsp;</span>
         </span>
-        <a href="/gameover" class="end_btn">сдаться</a>
     </div>
     <!-- //Линия прогресса -->
-
+    <div class="content__wrap" id="start" style="width: 240px;">
+        <input id="guess" class="my" placeholder="Страна?" autofocus/>
+        <a href="javascript:answer_cf_hard()" class="check">проверить (enter)</a>
+    </div>
+    <a href="/gameover" class="end_btn">сдаться</a>
 </div>
 {{> footer}}
 

@@ -317,45 +317,57 @@ input:focus, select:focus, button:focus{
 }
 .check{
   text-decoration: none;
+  border: 4px solid #ececec;
+  width: 100%;
+  background-color: lightgray;
   color: gray;
+  border-radius: 8px;
+  padding: 13px;
   display: block;
   text-align: center;
+}
+.check:hover{
+  background-color: #AFAEAE;
+  color: #ececec;
 }
 .my{
   border: 4px solid #ececec !important ;
   display: inline-block;
-  padding: 10px 15px;
-  background: #3876AC;
-  color: #fff;
+  width: 100%;
+  padding: 16px 25px;
+  color: black;
   margin-top: 10px;
-  float: right;
-  cursor: pointer;
   text-transform: capitalize;
   margin-bottom: 20px;
+  border-radius: 13px;
+}
+.my::-moz-placeholder{
+  color: darkgrey;
+}
+.my::-webkit-input-placeholder{
+  color: darkgrey;
 }
 .correctInput{
   border: 4px solid green !important ;
   display: inline-block;
-  padding: 10px 15px;
-  background: #3876AC;
-  color: #fff;
+  width: 100%;
+  padding: 16px 25px;
+  color: black;
   margin-top: 10px;
-  float: right;
-  cursor: pointer;
   text-transform: capitalize;
   margin-bottom: 20px;
+  border-radius: 13px;
 }
 .wrongInput{
   border: 4px solid red !important ;
   display: inline-block;
-  padding: 10px 15px;
-  background: #3876AC;
-  color: #fff;
+  width: 100%;
+  padding: 16px 25px;
+  color: black;
   margin-top: 10px;
-  float: right;
-  cursor: pointer;
   text-transform: capitalize;
   margin-bottom: 20px;
+  border-radius: 13px;
 }
 
 /********************************************************/
@@ -455,6 +467,7 @@ input:focus, select:focus, button:focus{
   width: 100%;
   display: block;
   border: 1px solid #ccc;
+  border-radius: 10px;
   background: none;
   padding: 0 8px;
   outline: none;
@@ -466,11 +479,9 @@ input:focus, select:focus, button:focus{
   width: 35px;
   right: 0;
   top: 0;
-  background: url(../images/scope.png) center center no-repeat;
+  background: url(../images/scope-hover.png) center center no-repeat;
   border: none;
-  cursor: pointer;
 }
-.search__btn:hover { background: url(../images/scope-hover.png) center center no-repeat; }
 
 /* Сообщение о завершении игры */
 .message__wrap { text-align: center; }
@@ -684,7 +695,7 @@ input:focus, select:focus, button:focus{
 /*contact form*/
 .contact-info {
   display: block;
-  margin-top: 55px;
+  margin-top: 100px;
   /*width: 100%;*/
   /*margin: 0 auto;*/
   text-align: center;
