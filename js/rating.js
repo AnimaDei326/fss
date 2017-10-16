@@ -1,6 +1,6 @@
 $(document).ready(function() {
     
-    var num = 5; //должно совпадать с amount
+    var num = 50; //должно совпадать с amount
     
     $("#next-list").click(function() {
         var inProcess = false;

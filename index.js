@@ -65,7 +65,7 @@ app.get('/facts', function(req, result, next){
         value2: false,
         value3: req.session.id,
         beginningWith: 0,
-        amount: 5
+        amount: 50
     };
     Games.selectPart(filtr, function(err, res){
         if(err){
@@ -101,7 +101,7 @@ app.get('/more', function(req, result, next){
         value2: false,
         value3: req.session.id,
         beginningWith: beginningWith,
-        amount: 5
+        amount: 50
     };
     Games.selectPart(filtr, function(err, res){
         if(err){
