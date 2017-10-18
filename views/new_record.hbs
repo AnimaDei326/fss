@@ -5,6 +5,7 @@
         <form action="/game/new_record" class="win-message__form" method="POST">
             <input class="win-message__input" name="username" placeholder="Ваше имя" required  />
             <input class="win-message__input" name="city" placeholder="Ваш город" required />
+            <input type="hidden" name="game" value="{{gamename}}"/>
             <input type="submit" class="win-message__btn"  value="Сохранить" />
         </form>
     </div>

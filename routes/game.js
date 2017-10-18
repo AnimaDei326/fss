@@ -564,8 +564,14 @@ module.exports = function(app){
                 case 'country_flag': game = 'угадать страну по флагу'; break;
                 case 'capital_country': game = 'угадать столицу по стране'; break;
                 case 'country_capital': game = 'угадать страну по столице'; break;
+                case 'flag_country_hard': game = 'угадать флаг по стране'; break;
+                case 'country_flag_hard': game = 'угадать страну по флагу'; break;
+                case 'capital_country_hard': game = 'угадать столицу по стране'; break;
+                case 'country_capital_hard': game = 'угадать страну по столице'; break;
                 default: game = 'угадать флаг по стране';
             }
+            console.log(request.body.game);
+            console.log(game);
             let resultScore = scoreWin - (arrUser[request.session.id].countLoses * 3);
             let filtr = {
                 table : 'records',
