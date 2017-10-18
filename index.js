@@ -115,110 +115,116 @@ app.get('/more', function(req, result, next){
 
 //Поставить like
 app.get('/like/:id', function(req, response, next){
-    let filtr = {
-        table: 'rating',
-        column1: 'id_fact',
-        value1: req.params.id,
-        column2: 'id_session',
-        value2: req.session.id
-    };
-    Games.select(filtr, function(error, result){
-        if(error){
-            console.log(error);
-        }else{
-            if(!result){
-                let filtr2 = {
-                    table: 'rating',
-                    set: {
-                        'id_fact': req.params.id,
-                        'id_session' : req.session.id,
-                        'is_like': true
-                    }
-                };
-                Games.insert(filtr2, function(err, res){
-                  if(err){
-                      console.log(err);
-                  }else{
-                      response.send(true);
-                  }
-                });
+    if(req.session.id && req.params.id){
+        let filtr = {
+            table: 'rating',
+            column1: 'id_fact',
+            value1: req.params.id,
+            column2: 'id_session',
+            value2: req.session.id
+        };
+        Games.select(filtr, function(error, result){
+            if(error){
+                console.log(error);
             }else{
-                response.send(false);
-            }
-        }
-    });
-});
-//Поставить dislike
-app.get('/dislike/:id', function(req, response, next){
-    let filtr = {
-        table: 'rating',
-        column1: 'id_fact',
-        value1: req.params.id,
-        column2: 'id_session',
-        value2: req.session.id
-    };
-    Games.select(filtr, function(error, result){
-        if(error){
-            console.log(error);
-        }else{
-            if(!result){
-                let filtr2 = {
-                    table: 'rating',
-                    set: {
-                        'id_fact': req.params.id,
-                        'id_session' : req.session.id,
-                        'is_like': false
-                    }
-                };
-                Games.insert(filtr2, function(err, res){
+                if(!result){
+                    let filtr2 = {
+                        table: 'rating',
+                        set: {
+                            'id_fact': req.params.id,
+                            'id_session' : req.session.id,
+                            'is_like': true
+                        }
+                    };
+                    Games.insert(filtr2, function(err, res){
                     if(err){
                         console.log(err);
                     }else{
                         response.send(true);
                     }
-                });
-            }else{
-                response.send(false);
+                    });
+                }else{
+                    response.send(false);
+                }
             }
-        }
-    });
+        });
+    }
+});
+//Поставить dislike
+app.get('/dislike/:id', function(req, response, next){
+    if(req.session.id && req.params.id){
+        let filtr = {
+            table: 'rating',
+            column1: 'id_fact',
+            value1: req.params.id,
+            column2: 'id_session',
+            value2: req.session.id
+        };
+        Games.select(filtr, function(error, result){
+            if(error){
+                console.log(error);
+            }else{
+                if(!result){
+                    let filtr2 = {
+                        table: 'rating',
+                        set: {
+                            'id_fact': req.params.id,
+                            'id_session' : req.session.id,
+                            'is_like': false
+                        }
+                    };
+                    Games.insert(filtr2, function(err, res){
+                        if(err){
+                            console.log(err);
+                        }else{
+                            response.send(true);
+                        }
+                    });
+                }else{
+                    response.send(false);
+                }
+            }
+        });
+    }
 });
 
 //Удалить like или dislike
 app.get('/delete_rating/:id', function(req, response, next){
-    let filtr = {
-        table: 'rating',
-        column1: 'id_fact',
-        value1: req.params.id,
-        column2: 'id_session',
-        value2: req.session.id
-    };
-    Games.select(filtr, function(error, result){
-        if(error){
-            console.log(error);
-        }else{
-            if(result){
-                let filtr2 = {
-                    table: 'rating',
-                    column: 'id',
-                    value: result.id
-                };
-                Games.remove(filtr2, function(err, res){
-                    if(err){
-                        console.log(err);
-                    }else{
-                        if(res){
-                            response.send(true);
-                        }else{
-                            response.send(false);
-                        } 
-                    }
-                });
+    if(req.session.id && req.params.id){
+        let filtr = {
+            table: 'rating',
+            column1: 'id_fact',
+            value1: req.params.id,
+            column2: 'id_session',
+            value2: req.session.id
+        };
+        Games.select(filtr, function(error, result){
+            if(error){
+                console.log(error);
             }else{
-                response.send(false);
+                if(result){
+                    let filtr2 = {
+                        table: 'rating',
+                        column: 'id',
+                        value: result.id
+                    };
+                    Games.remove(filtr2, function(err, res){
+                        if(err){
+                            console.log(err);
+                        }else{
+                            if(res){
+                                response.send(true);
+                            }else{
+                                response.send(false);
+                            } 
+                        }
+                    });
+                }else{
+                    response.send(false);
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 //Обучение
