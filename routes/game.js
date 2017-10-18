@@ -570,8 +570,6 @@ module.exports = function(app){
                 case 'country_capital_hard': game = 'угадать страну по столице'; break;
                 default: game = 'угадать флаг по стране';
             }
-            console.log(request.body.game);
-            console.log(game);
             let resultScore = scoreWin - (arrUser[request.session.id].countLoses * 3);
             let filtr = {
                 table : 'records',
