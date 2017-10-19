@@ -187,3 +187,6 @@ function select(element, type) {
         level_input.value = value;
     }
 }
+function back(){
+    window.history.back();
+}

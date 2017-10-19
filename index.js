@@ -2,6 +2,9 @@ const express = require('express');
 const templating = require('consolidate');
 const app = express();
 
+const compression = require('compression');
+app.use(compression());
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -46,6 +49,7 @@ require('./routes/admin.js')(app);
 require('./routes/game.js')(app);
 require('./routes/fact.js')(app);
 
+
 //Главная страница
 app.get('/', function(req, res, next){
     res.redirect('/game');
@@ -53,36 +57,16 @@ app.get('/', function(req, res, next){
 
 //Факты
 app.get('/facts', function(req, result, next){
-    var filtr = {
-        id1: 'id',
-        id2: 'id_fact',
-        table1: 'facts',
-        table2: 'rating',
-        column1: 'is_like',
-        column2: 'is_like',
-        column3: 'id_session',
-        value1: true,
-        value2: false,
-        value3: req.session.id,
-        beginningWith: 0,
-        amount: 50
-    };
-    Games.selectPart(filtr, function(err, res){
-        if(err){
-            console.log(err);
-        }else{
-            result.render('facts',{
-                title: 'Факты',
-                h1: 'Факты',
-                rows: res,
-                partials: {
-                    header: 'partials/header',
-                    footer: 'partials/footer'
-                }
-            });
+    result.render('facts',{
+        title: 'Факты',
+        h1: 'Факты',
+        partials: {
+            header: 'partials/header',
+            footer: 'partials/footer'
         }
     });
 });
+
 //Еще факты
 app.get('/more', function(req, result, next){
     let beginningWith = 0;
@@ -101,7 +85,7 @@ app.get('/more', function(req, result, next){
         value2: false,
         value3: req.session.id,
         beginningWith: beginningWith,
-        amount: 50
+        amount: 5
     };
     Games.selectPart(filtr, function(err, res){
         if(err){
@@ -459,6 +443,7 @@ app.post('/contacts', function(req, response, next){
         }
       });
 });
+
 
 //404
 app.all('*', function(req, res, next){

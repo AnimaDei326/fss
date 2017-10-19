@@ -115,12 +115,12 @@ const Games = {
                     "(SELECT count(??) FROM ?? WHERE ??.?? = ?" +
                     " AND ??.?? = ??.?? " +
                     " AND ??.?? = ?) as i_dislike " +
-                      "FROM ?? LIMIT ?, ?",
+                      "FROM ?? ORDER BY ?? DESC LIMIT ?, ?",
                     [id2, table2, table1, id1, id2, column2, value2, id2, table2, table1, id1,
                         id2, column1, value1, 
                         column1, table2 , table2, column3, value3, table2, id2, table1, id1, table2, column1, value1, 
                         column1, table2 , table2, column3, value3, table2, id2, table1, id1, table2, column1, value2, 
-                        table1, beginningWith, amount], function(err, result){
+                        table1, id1, beginningWith, amount], function(err, result){
                     callback(null, result);
                 });
             }

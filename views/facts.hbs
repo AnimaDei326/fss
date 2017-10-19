@@ -1,29 +1,6 @@
 {{> header}}
     <div class="content__wrap" style="width: 70%">
-        <div class="news-blocks__wrap" id="facts">
-            {{#if rows}}
-                {{#each rows}}
-                    <!-- новостной блок -->
-                        <div class="news-block__wrap" id="id{{this.id}}">
-                            <h3 class="news-block__title">{{this.title_preview}}</h3>
-                            <img src="/images/facts/{{this.img_preview}}" alt="image_preview" class="news-block__img">
-                            <p class="news-block__text">{{this.text_preview}}</p>
-
-                            <div class="news-block__footer">
-                                <ul class="news__soc-info">
-                                    <li class="soc-info__element {{#if this.i_like}}active{{else}}like{{/if}}" data-parameter="{{this.id}}">{{#if this.i_like}}<img alt="like" src="/images/active_like.png" />{{else}}<img alt="like" src="/images/like.png" />{{/if}}<span>{{this.lik}}</span></li>
-                                    <li class="soc-info__element {{#if this.i_dislike}}active{{else}}dislike{{/if}}" data-parameter="{{this.id}}">{{#if this.i_dislike}}<img alt="dislike" src="/images/active_dislike.png" />{{else}}<img alt="dislike" src="/images/dislike.png" />{{/if}}<span>{{this.dislike}}</span></li>
-                                    <li class="soc-info__element_views"><img alt="views" src="/images/view.png" /><span>{{this.views}}</span></li>
-                                </ul>
-                                <a href="/fact/{{this.id}}" class="right view__more">Подробнее</a>
-                            </div>
-                        </div>
-                    <!-- //новостной блок -->
-                {{/each}}
-            {{else}}
-            <h1>Контент пуст</h1>
-            {{/if}}
-        </div>
+        <div class="news-blocks__wrap" id="facts"></div>
         <input id="next-list" type="button" value="Ещё" class="save-settings__btn">
     </div>
 {{> footer}}

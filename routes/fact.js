@@ -20,8 +20,18 @@ module.exports = function(app){
         Games.selectOne(filtr, function(error, result){
             if(error){
                 console.log(error);
-            }else if(!result){
-                res.redirect('/404');
+            }else if(!result[0]){
+                res.render('fact', {
+                    title: 'Факт',
+                    h1: 'Ошибка',
+                    h3: 'Факт состоит в том, что запрашиваемый факт не найден',
+                    rows: false,
+                    partials: {
+                        header: 'partials/header',
+                        admin: 'partials/admin',
+                        footer: 'partials/footer'
+                    }
+                });
             }else{
                 let views = result[0].views * 1 + 1;
                 let filtr3 = {

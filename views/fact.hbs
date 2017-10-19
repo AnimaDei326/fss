@@ -1,8 +1,8 @@
 {{> header}}
-    {{#if rows}}
-        <div class="content__wrap" style="width: 70%">
+    <div class="content__wrap" style="width: 70%"></div>
+        {{#if rows}}
             {{#each rows}}
-            <a href="/facts#id{{this.id}}"><img class="back_btn_facts" src="/images/back.png" alt="back"/></a>
+            <a onclick="javascript:back()"><img class="back_btn_facts" src="/images/back.png" alt="back"/></a>
                 <h3 class="news-block__title"><strong>{{this.title_main}}</strong></h3>
                 <!-- новостной блок -->
                 <div class="news-block__wrap">
@@ -42,10 +42,11 @@
                 {{/if}}
             </div>
             <!-- блок комментариев -->
-        </div>
-    {{else}}
-        <a class="back_btn" href="/facts">назад</a>
-    {{/if}}
+        {{else}}
+            <h3 class="news-block__title" >{{h3}}</h3>
+            <a onclick="javascript:back()" style="cursor: pointer;">вернуться</a>
+        {{/if}}
+    </div>
     <script>
        replaceTag();
     </script>
