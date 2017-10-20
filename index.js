@@ -69,9 +69,9 @@ app.get('/facts', function(req, result, next){
 
 //Еще факты
 app.get('/more', function(req, result, next){
-    let beginningWith = 0;
+    let lastId = 999999;
     if(parseInt(req.query.page)){
-        beginningWith = parseInt(req.query.page);
+        lastId = parseInt(req.query.page);
     }
     var filtr = {
         id1: 'id',
@@ -84,7 +84,7 @@ app.get('/more', function(req, result, next){
         value1: true,
         value2: false,
         value3: req.session.id,
-        beginningWith: beginningWith,
+        lastId: lastId,
         amount: 5
     };
     Games.selectPart(filtr, function(err, res){

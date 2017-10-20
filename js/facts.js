@@ -1,17 +1,13 @@
 $(document).ready(function() {
     let path = window.location.pathname;
     if(path == '/facts'){
-        if(!localStorage.getItem('num')){
-            localStorage.setItem('num', 0);
-        }
-        var num = !localStorage.getItem('num');
+        setLiveTimeLocalStorage();
         if(!localStorage.getItem('html'))
         {
             appendFacts();
         }else{
             var strHtml = localStorage.getItem('html');
             $("#facts").append(strHtml);
-            num += facts.children.length;
         }
         
         $("#next-list").click(function() {
@@ -20,23 +16,28 @@ $(document).ready(function() {
 
         function appendFacts(){
             var inProcess = false;
+            if(!localStorage.getItem('lastId')){
+                localStorage.setItem('lastId', 999999);
+            }
+            var lastId = localStorage.getItem('lastId');
             if (!inProcess) {
                 $.ajax({
-                    url: '/more?page=' + num,
-                    success: function (data) {
-                        num += data.length;
-                    },
+                    url: '/more?page=' + lastId,
                     beforeSend: function () {
                         inProcess = true;
                     }
                 }).done(function (data) {
                     if (data.length > 0) {
+                        var length = data.length;
                         var img_like = '';
                         var img_dislike = '';
                         var li_like = '';
                         var li_dislike = '';
                         var newFacts = '';
                         $.each(data, function (index, data) {
+                            if(index + 1 == length){
+                                localStorage.setItem('lastId', data.id);
+                            }
                             if(data.i_like){
                                 img_like = '<img alt="like" src="/images/active_like.png" />';
                                 li_like = '<li class="soc-info__element active" data-parameter="'+data.id+'">';
@@ -55,6 +56,7 @@ $(document).ready(function() {
                                 '<div class="news-block__wrap"><h3 class="news-block__title">'+data.title_preview+'</h3><img alt="img_preview" src="/images/facts/'+data.img_preview+'" class="news-block__img"><p class="news-block__text">'+data.text_preview+'</p><div class="news-block__footer"><ul class="news__soc-info">'+li_like+img_like
                                 +'<span>'+data.lik+'</span></li>'+li_dislike+img_dislike+'<span>'+data.dislike+'<span></li><li class="soc-info__element_views"><img alt="views" src="/images/view.png" /><span>'+data.views+'</span></li></ul><a href="/fact/'+data.id+'" class="right view__more">Подробнее</a></div></div>';
                         });
+                        
                         $("#facts").append(newFacts);
                         var strHtml = '';
                         if(localStorage.getItem('html')){
@@ -62,26 +64,28 @@ $(document).ready(function() {
                         }
                         try{
                             localStorage.setItem('html', strHtml + newFacts);
-                            var limit = 24 * 3600 * 1000;
-                            var localStorageInitTime = localStorage.getItem('localStorageInitTime');
-                            if (localStorageInitTime === null) {
-                                localStorage.setItem('localStorageInitTime', +new Date());
-                            }else if(+new Date() - localStorageInitTime > limit){
-                                localStorage.clear();
-                                localStorage.setItem('localStorageInitTime', +new Date());
-                            }
                         } catch (e) {
                             if (e == QUOTA_EXCEEDED_ERR) {
-                            localStorage.clear();
-                        }
+                                localStorage.clear();
+                            }
                         }
                         addEventListenerForRating();
                         inProcess = false;
                     }else{
-                        $("#next-list")[0].value = 'Больше нет, спасибо за Ваш интерес, и ждите новых фактов - добавляем ежедневно =)';
+                        $("#next-list")[0].value = 'Больше нет, но завтра будут =)';
                     }
                 })
             }
+        }
+    }
+    function setLiveTimeLocalStorage(){
+        var limit = 5 * 3600 * 1000;
+        var localStorageInitTime = localStorage.getItem('localStorageInitTime');
+        if (localStorageInitTime === null) {
+            localStorage.setItem('localStorageInitTime', +new Date());
+        }else if(+new Date() - localStorageInitTime > limit){
+            localStorage.clear();
+            localStorage.setItem('localStorageInitTime', +new Date());
         }
     }
     function like(event){
