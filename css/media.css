@@ -48,7 +48,7 @@
   .burger-menu__wrap { left: 15px; }
 
   /* главный заголовок - на всех страницах*/
-  .header__title { font-size: 25px; }
+  .header__title        { font-size: 25px; }
   .message__result-text { font-size: 18px; }
 
   .end_btn { font-size: 14px; }
@@ -67,23 +67,25 @@
     font-size: 14px;
     padding: 8px 13px;
   }
-  .counting__wrap { font-size: 14px; }
+  .counting__wrap  { font-size: 14px; }
   .counting__title { font-size: 16px; }
 
   /* таблицы */
   .search-form { width: 200px; } /* поисковик */
 
   .main-table__title { font-size: 19px; }
-  .main-table { font-size: 13px; }
-  .table__tr-title { font-size: 20px; }
+  .main-table        { font-size: 13px; }
+  .table__tr-title   { font-size: 20px; }
+
   .main-table__img { width: 100px; }
+  .table__row-flag { width: 130px; }
 
 
   /* страница настроек */
   .settings-form__title { font-size: 13px; }
-  .select__wrap { font-size: 13px; }
+  .select__wrap         { font-size: 13px; }
 
-  .flags-list__element { height: 100px; }
+  .flags-list__element     { height: 100px; }
   .flags-list__element img { height: 100px; }
 
 
@@ -149,18 +151,20 @@
   /* таблицы */
   .search-form { width: 160px; }
   .main-table__title { font-size: 17px; }
-  .main-table { font-size: 11px; }
-  .table__tr-title { font-size: 18px; }
+  .main-table        { font-size: 11px; }
+  .table__tr-title   { font-size: 18px; }
+
+  .table__row-flag { width: 100px; }
   .main-table__img { width: 80px; }
 
 
-  .counting__wrap { font-size: 12px; }
+  .counting__wrap  { font-size: 12px; }
   .counting__title { font-size: 15px; }
 
 
   /* страница настроек */
   .settings-form__title { font-size: 13px; }
-  .select__wrap { font-size: 13px;}
+  .select__wrap         { font-size: 13px;}
 
   .settings__lvl,
   .settings__world {
@@ -177,9 +181,9 @@
   .news-block__text { font-size: 12px; }
 
   .comment__author { font-size: 13px; }
-  .comment__text { font-size: 12px; }
+  .comment__text   { font-size: 12px; }
   .news__soc-info,
-  .comment-addons { font-size: 13px; }
+  .comment-addons  { font-size: 13px; }
 
   .soc-info__ico { top: -1px; }
 
@@ -225,15 +229,24 @@
 @media (max-width: 320px) {
   /* MAIN STYLES */
 
+
+  .table__row-flag    { width: 65px; }
+  .table__row-country { width: 90px; }
+  .table__row-capital { width: 100px; }
+
+
   /* страница окончания игры */
   .btn__more { margin: 0; }
   .main-table__body td,
   .main-table__header td { padding: 2px;}
 
   .main-table__title { font-size: 16px; }
-  .main-table { font-size: 10px; }
-  .table__tr-title { font-size: 17px; }
-  .main-table__img { width: 80px; }
+  .main-table { font-size: 9px; }
+  .table__tr-title {
+    font-size: 17px;
+    height: 55px;
+  }
+  .main-table__img { width: 60px; }
 
   .flags-list__element { height: 55px; }
 }

@@ -397,6 +397,8 @@ input:focus, select:focus, button:focus{
   border-collapse: collapse;
   border-radius: 4px;
   overflow: hidden;
+
+  table-layout: fixed;
 }
 .main-table__header tr {
   height: 45px;
@@ -444,6 +446,10 @@ input:focus, select:focus, button:focus{
   display: block;
   overflow: hidden;
 }
+
+.table__row-flag    { width: 25%; }
+.table__row-country { width: 35%; }
+.table__row-capital { width: 40%; }
 
 .link-back {
   float: left;
