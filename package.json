@@ -35,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/AnimaDei326/fss/issues"
   },
-  "homepage": "https://github.com/AnimaDei326/fss#readme"
+  "homepage": "https://github.com/AnimaDei326/fss#readme",
+  "devDependencies": {
+    "compression": "^1.7.1"
+  }
 }

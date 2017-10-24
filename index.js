@@ -200,7 +200,7 @@ app.get('/delete_rating/:id', function(req, response, next){
                                 response.send(true);
                             }else{
                                 response.send(false);
-                            } 
+                            }
                         }
                     });
                 }else{
@@ -426,7 +426,7 @@ app.post('/contacts', function(req, response, next){
         subject: 'Письмо от ' + name + ' email: ' + email,
         text: message
       };
-      
+
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
@@ -449,7 +449,7 @@ app.post('/contacts', function(req, response, next){
 app.all('*', function(req, res, next){
   res.status(404);
   if(req.accepts('html')){
-        res.render('404', { 
+        res.render('404', {
             url: req.url,
             title: '404',
             h1: 'Страницы не найдена, воспользуйтесь меню, чтобы перейти в другие разделы',
@@ -465,7 +465,7 @@ app.all('*', function(req, res, next){
 app.all('/404', function(req, res, next){
   res.status(404);
   if(req.accepts('html')){
-        res.render('404', { 
+        res.render('404', {
             url: req.url,
             title: '404',
             partials: {
